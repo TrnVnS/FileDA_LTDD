@@ -37,7 +37,7 @@ public class ChiTietBan_DAO {
         return false;
     }
 
-    public boolean CapNhatChiTietHD(ChiTietBan_DTO ct)
+    public boolean CapNhatChiTietBan(ChiTietBan_DTO ct)
     {
 
         ContentValues values = new ContentValues();

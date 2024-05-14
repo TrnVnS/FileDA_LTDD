@@ -1,7 +1,9 @@
 package com.example.stsfoods.Fragment;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -99,15 +101,32 @@ public class QLNhanVienFragment extends Fragment {
         lst.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                DTO_NhanVien nv = lst_nv.get(position);
-                int manv = nv.getMaNV();
-                boolean kt = nvDAO.deleteNhanVien(manv);
-                if(kt){
-                    HienThiNhanVienAdapter();
-                    Toast.makeText(getActivity(), "Đã xóa nhân viên.", Toast.LENGTH_LONG).show();
-                }else{
-                    Toast.makeText(getActivity(), "Không thể xóa nhân viên.", Toast.LENGTH_LONG).show();
-                }
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("Xác nhận");
+                builder.setMessage("Bạn có chắc muốn xóa?");
+                builder.setCancelable(true);
+                builder.setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        DTO_NhanVien nv = lst_nv.get(position);
+                        manv = nv.getMaNV();
+                        boolean kt = nvDAO.deleteNhanVien(manv);
+                        if(kt){
+                            HienThiNhanVienAdapter();
+                            Toast.makeText(getActivity(), "Đã xóa nhân viên.", Toast.LENGTH_LONG).show();
+                        }else{
+                            Toast.makeText(getActivity(), "Không thể xóa nhân viên.", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+                builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
                 return true;
             }
         });

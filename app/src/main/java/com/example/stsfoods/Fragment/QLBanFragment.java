@@ -1,6 +1,8 @@
 package com.example.stsfoods.Fragment;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -102,25 +104,37 @@ public class QLBanFragment extends Fragment {
         gvBan.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-
-                // Lấy đối tượng BanTDO tương ứng với vị trí trong danh sách
-                BanAnDTO selectedBan = lst.get(position);
-
-                //Lấy mã bàn
-                int maban = selectedBan.getMaBan();
-
-                // Gọi phương thức xóa món từ lớp DAO
-                boolean ktBan = bDAO.XoaBan(maban);
-                boolean ktChiTiet = ctDAO.XoaCTBanTheoMaBan(maban);
-                // Kiểm tra kết quả xóa và thông báo cho người dùng
-                if (ktBan && ktChiTiet) {
-                    // Cập nhật lại danh sách món và giao diện
-                    HienThiBanAdapter();
-                    Toast.makeText(getActivity(), "Đã xóa bàn.", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getActivity(), "Xóa bàn không thành công.", Toast.LENGTH_SHORT).show();
-                }
-
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("Xác nhận");
+                builder.setMessage("Bạn có chắc muốn xóa?");
+                builder.setCancelable(true);
+                builder.setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Lấy đối tượng BanTDO tương ứng với vị trí trong danh sách
+                        BanAnDTO selectedBan = lst.get(position);
+                        //Lấy mã bàn
+                        int maban = selectedBan.getMaBan();
+                        // Gọi phương thức xóa món từ lớp DAO
+                        boolean delete = bDAO.XoaBan(maban);
+                        // Kiểm tra kết quả xóa và thông báo cho người dùng
+                        if (delete) {
+                            // Cập nhật lại danh sách món và giao diện
+                            HienThiBanAdapter();
+                            Toast.makeText(getActivity(), "Đã xóa bàn.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getActivity(), "Xóa bàn không thành công.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
                 return true;
             }
         });

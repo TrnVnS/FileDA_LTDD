@@ -1,5 +1,7 @@
 package com.example.stsfoods.Activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -96,8 +98,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TrangChuFragment()).commit();
                 break;
             case R.id.nav_Thoat:
-                this.finish();
-                System.exit(0);
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Xác nhận");
+                builder.setMessage("Bạn có muốn thoát?");
+                builder.setCancelable(true);
+                builder.setPositiveButton("Thoát", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                        System.exit(0);
+                    }
+                });
+                builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
                 break;
             case R.id.nav_QLMon:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new QLMonFragment()).commit();
@@ -118,10 +137,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ThayDoiMKFragment()).commit();
                 break;
             case R.id.nav_DangXuat:
-                Toast.makeText(this, "Đã đăng xuất", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(MainActivity.this, LogIn.class);
-                startActivity(intent);
-                finish();
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+                builder1.setTitle("Xác nhận");
+                builder1.setMessage("Bạn có muốn đăng xuất?");
+                builder1.setCancelable(true);
+                builder1.setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(MainActivity.this, "Đã đăng xuất", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(MainActivity.this, LogIn.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+                builder1.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                AlertDialog alertDialog1 = builder1.create();
+                alertDialog1.show();
                 break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);

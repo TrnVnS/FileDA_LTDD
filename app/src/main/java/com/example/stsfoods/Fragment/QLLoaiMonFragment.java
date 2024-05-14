@@ -1,6 +1,8 @@
 package com.example.stsfoods.Fragment;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -37,7 +39,6 @@ public class QLLoaiMonFragment extends Fragment {
     Button btnLuu, btnHuy;
     EditText edtLoaiMon;
 
-    public static int Request_code_themloai = 123;
     ListView listView;
     List<PhanLoaiDTO> lstPhanLoai;
     lstPhanLoaiAdapter adtPhanLoai;
@@ -74,16 +75,34 @@ public class QLLoaiMonFragment extends Fragment {
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                PhanLoaiDTO pl = lstPhanLoai.get(position);
-                int maloai = pl.getMa();
-                boolean ktloai = plDAO.XoaLoai(maloai);
-                boolean ktm = mDAO.XoaMonTheoMaLoai(maloai);
-                if(ktloai && ktm){
-                    showLoaiMon();
-                    Toast.makeText(getActivity(), "Đã xóa loại món.", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getActivity(), "Xóa loại món không thành công.", Toast.LENGTH_SHORT).show();
-                }
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("Xác nhận");
+                builder.setMessage("Bạn có chắc muốn xóa?");
+                builder.setCancelable(true);
+                builder.setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        AlertDialog alertDialog = builder.create();
+                        alertDialog.show();
+                        PhanLoaiDTO pl = lstPhanLoai.get(position);
+                        int maloai = pl.getMa();
+                        boolean kt = plDAO.XoaLoai(maloai);
+                        if(kt){
+                            showLoaiMon();
+                            Toast.makeText(getActivity(), "Đã xóa loại món.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getActivity(), "Xóa loại món không thành công.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
                 return true;
             }
         });

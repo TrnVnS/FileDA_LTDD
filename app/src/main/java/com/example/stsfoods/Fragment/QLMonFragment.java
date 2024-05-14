@@ -1,7 +1,9 @@
 package com.example.stsfoods.Fragment;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Application;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -107,26 +109,37 @@ public class QLMonFragment extends Fragment {
         lstQLMon.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-
-                // Lấy đối tượng MonDTO tương ứng với vị trí trong danh sách
-                MonDTO selectedMon = lst.get(position);
-
-                //Lấy mã món
-                int mamon = selectedMon.getMamon();
-
-                // Gọi phương thức xóa món từ lớp DAO
-                boolean ktMon = mDAO.XoaMon(mamon);
-                boolean ktCT = ctDAO.XoaCTBanThemMaMon(mamon);
-
-                // Kiểm tra kết quả xóa và thông báo cho người dùng
-                if (ktMon && ktCT) {
-                    // Cập nhật lại danh sách món và giao diện
-                    HienThiDSMon();
-                    Toast.makeText(getActivity(), "Bạn vừa xoá một món", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getActivity(), "Xóa món thất bại", Toast.LENGTH_SHORT).show();
-                }
-
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("Xác nhận");
+                builder.setMessage("Bạn có chắc muốn xóa?");
+                builder.setCancelable(true);
+                builder.setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Lấy đối tượng MonDTO tương ứng với vị trí trong danh sách
+                        MonDTO selectedMon = lst.get(position);
+                        //Lấy mã món
+                        int mamon = selectedMon.getMamon();
+                        // Gọi phương thức xóa món từ lớp DAO
+                        boolean xoaThanhCong = mDAO.XoaMon(mamon);
+                        // Kiểm tra kết quả xóa và thông báo cho người dùng
+                        if (xoaThanhCong) {
+                            // Cập nhật lại danh sách món và giao diện
+                            HienThiDSMon();
+                            Toast.makeText(getActivity(), "Bạn vừa xoá một món", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getActivity(), "Xóa món thất bại", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
                 return true;
             }
         });
