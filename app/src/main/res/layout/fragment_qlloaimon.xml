@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragment.QLLoaiMonFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Thông tin loại món"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/edt_LoaiMon"
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/edt_text_background"
+                android:hint="Loại món"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/btn_HuyLoaiMon"
+                android:layout_width="165dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:backgroundTint="#EAEAEA"
+                android:padding="10dp"
+                android:text="Huỷ"
+                android:textColor="#000000"
+                android:textSize="17sp"
+                app:cornerRadius="50dp"
+                app:layout_constraintStart_toStartOf="@+id/edt_LoaiMon"
+                app:layout_constraintTop_toBottomOf="@+id/edt_LoaiMon" />
+
+            <Button
+                android:id="@+id/btn_LuuLoaiMon"
+                android:layout_width="165dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:text="Lưu"
+                android:textSize="17sp"
+                app:cornerRadius="50dp"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_HuyLoaiMon"
+                app:layout_constraintEnd_toEndOf="@+id/edt_LoaiMon"
+                app:layout_constraintTop_toTopOf="@+id/btn_HuyLoaiMon" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Danh sách loại món"
+            android:textSize="20dp"
+            android:gravity="center"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            />
+        <ListView
+            android:id="@+id/lst_LM"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+</FrameLayout>

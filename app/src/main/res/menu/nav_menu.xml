@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_TrangChu"
+            android:icon="@drawable/home"
+            android:title="Trang chủ"/>
+        <item
+            android:id="@+id/nav_Thoat"
+            android:icon="@drawable/exit"
+            android:title="Thoát"/>
+    </group>
+
+    <item
+        android:title="Chức năng">
+        <menu>
+            <group
+                android:id="@+id/gr_chucnang"
+                android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_QLMon"
+                    android:icon="@drawable/food_drink"
+                    android:title="Quản lý món"/>
+                <item
+                    android:id="@+id/nav_QLLoaiMon"
+                    android:icon="@drawable/type"
+                    android:title="Quản lý loại món"/>
+                <item
+                    android:id="@+id/nav_QLBan"
+                    android:icon="@drawable/ic_table"
+                    android:title="Quản lý bàn"/>
+            </group>
+        </menu>
+    </item>
+
+    <item
+        android:title="Nhân sự">
+        <menu>
+            <group
+                android:id="@+id/gr_nhansu"
+                android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_QLNhanVien"
+                    android:icon="@drawable/employee"
+                    android:title="Quản lý nhân viên"/>
+            </group>
+        </menu>
+    </item>
+
+    <item
+        android:title="Tài khoản">
+        <menu>
+            <group
+                android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_ThongTin"
+                    android:icon="@drawable/edit"
+                    android:title="Thông tin cá nhân"/>
+                <item
+                    android:id="@+id/nav_ThayDoiMK"
+                    android:icon="@drawable/password"
+                    android:title="Thay đổi mật khẩu"/>
+                <item
+                    android:id="@+id/nav_DangXuat"
+                    android:icon="@drawable/logout"
+                    android:title="Đăng xuất"/>
+            </group>
+        </menu>
+    </item>
+</menu>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragment.QLBanFragment">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Thông tin bàn"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="Tên bàn: "
+                android:textSize="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="Tình trạng: "
+                android:textSize="16dp"
+                app:layout_constraintStart_toStartOf="@+id/textView4"
+                app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+            <EditText
+                android:id="@+id/edtTenBan"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="40dp"
+                android:background="@drawable/edt_text_background"
+                android:paddingHorizontal="10dp"
+                android:hint="Tên bàn"
+                android:textSize="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView4"
+                app:layout_constraintVertical_bias="0.588" />
+
+            <Spinner
+                android:id="@+id/spnTinhTrangBan"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:entries="@array/choices"
+                android:padding="10dp"
+                android:textSize="14dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView5"
+                app:layout_constraintStart_toStartOf="@+id/edtTenBan"
+                app:layout_constraintTop_toTopOf="@+id/textView5" />
+
+            <Button
+                android:id="@+id/btnHuyBan"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="16dp"
+                android:layout_weight="1"
+                android:backgroundTint="#EAEAEA"
+                android:padding="10dp"
+                android:text="Huỷ"
+                android:textColor="#000000"
+                app:cornerRadius="50dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+            <Button
+                android:id="@+id/btnLuuBan"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="30dp"
+                android:padding="10dp"
+                android:text="Lưu"
+                app:cornerRadius="50dp"
+                app:layout_constraintBottom_toBottomOf="@+id/btnHuyBan"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/btnHuyBan" />
+
+            <Button
+                android:id="@+id/btnXemCTBan"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:text="Chi tiết"
+                app:cornerRadius="50dp"
+                app:layout_constraintStart_toStartOf="@+id/btnHuyBan"
+                app:layout_constraintTop_toBottomOf="@+id/btnHuyBan" />
+
+            <Button
+                android:id="@+id/btnThanhToan"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:text="Thanh toán"
+                app:cornerRadius="50dp"
+                app:layout_constraintEnd_toEndOf="@+id/btnLuuBan"
+                app:layout_constraintTop_toBottomOf="@+id/btnLuuBan" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Danh sách bàn"
+            android:textSize="20dp"
+            android:gravity="center"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            />
+
+        <GridView
+            android:id="@+id/gvBan"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:numColumns="3">
+        </GridView>
+
+    </LinearLayout>
+
+</FrameLayout>

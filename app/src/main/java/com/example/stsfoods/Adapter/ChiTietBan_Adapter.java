@@ -1,0 +1,88 @@
+package com.example.stsfoods.Adapter;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.TextView;
+
+import com.example.stsfoods.DAO.MonDAO;
+import com.example.stsfoods.DTO.ChiTietBan_DTO;
+import com.example.stsfoods.R;
+
+import java.util.List;
+
+public class ChiTietBan_Adapter extends BaseAdapter{
+
+    Context context;
+    int layout;
+    List<ChiTietBan_DTO> lst;
+    ViewHolderChiTietHD viewHolderChiTietHD;
+
+    public ChiTietBan_Adapter(Context context, int layout, List<ChiTietBan_DTO> lst)
+    {
+        this.context = context;
+        this.layout = layout;
+        this.lst = lst;
+    }
+
+    @Override
+    public int getCount() {
+        return lst.size();
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return lst.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return lst.get(position).getMamon();
+    }
+
+    public class ViewHolderChiTietHD {
+        TextView txtTenMon, txtDonGia, txtSoLuong;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        View v = convertView;
+        if (v == null) {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            viewHolderChiTietHD = new ViewHolderChiTietHD();
+            v = inflater.inflate(R.layout.item_qlhoadon, parent, false);
+            viewHolderChiTietHD.txtTenMon = v.findViewById(R.id.txtTenMonHD);
+            viewHolderChiTietHD.txtSoLuong = v.findViewById(R.id.txtSoLuongHD);
+            viewHolderChiTietHD.txtDonGia = v.findViewById(R.id.txtDonGiaHD);
+            v.setTag(viewHolderChiTietHD);
+        } else {
+            viewHolderChiTietHD = (ViewHolderChiTietHD) v.getTag();
+        }
+
+        ChiTietBan_DTO chiTietHD = lst.get(position);
+        viewHolderChiTietHD.txtSoLuong.setText(String.valueOf(chiTietHD.getSoluong()));
+        viewHolderChiTietHD.txtTenMon.setText(String.valueOf(LayTenMonTuMaMon(chiTietHD.getMamon())));
+        viewHolderChiTietHD.txtDonGia.setText(String.valueOf(LayDonGiaTuMaMon(chiTietHD.getMamon())));
+
+        return v;
+    }
+
+    private String LayTenMonTuMaMon(int mamon)
+    {
+        MonDAO mDAO = new MonDAO(context);
+        String tenmon = mDAO.LayTenMonUngVoiMaMon(mamon);
+        if (tenmon != null) {
+            return tenmon;
+        }
+        return null; // Trả về null nếu không tìm thấy
+    }
+
+    private String LayDonGiaTuMaMon(int mamon)
+    {
+        MonDAO mDAO = new MonDAO(context);
+        String dongia = mDAO.LayDonGiaUngVoiMaMon(mamon);
+        return dongia;
+    }
+}

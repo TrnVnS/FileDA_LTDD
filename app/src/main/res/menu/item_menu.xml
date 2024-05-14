@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/itThemThucDon"
+        android:title="Thêm món"
+        />
+
+    <item
+        android:id="@+id/itThemLoaiMon"
+        android:title="Thêm loại món"
+        />
+
+    <item
+        android:id="@+id/itThemBan"
+        android:title="Thêm bàn ăn"
+        />
+
+    <item
+        android:id="@+id/itThemNhanVien"
+        android:title="Thêm nhân viên"
+        />
+</menu>

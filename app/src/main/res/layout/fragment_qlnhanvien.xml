@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragment.QLNhanVienFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Thông tin nhân viên"
+            android:textSize="20dp"
+            android:gravity="center"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/edt_sHoTen"
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                android:background="@drawable/edt_text_background"
+                android:ems="10"
+                android:hint="Họ và tên"
+                android:inputType="textPersonName"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.491"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/edt_sNgaySinh"
+                android:layout_width="240dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edt_text_background"
+                android:ems="10"
+                android:enabled="false"
+                android:hint="Ngày Sinh"
+                android:inputType="datetime"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                app:layout_constraintStart_toStartOf="@+id/edt_sHoTen"
+                app:layout_constraintTop_toBottomOf="@+id/edt_sHoTen" />
+
+            <Button
+                android:id="@+id/btn_sChonNS"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:backgroundTint="#EAEAEA"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:text="Chọn"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                app:cornerRadius="50dp"
+                app:layout_constraintBottom_toBottomOf="@+id/edt_sNgaySinh"
+                app:layout_constraintStart_toEndOf="@+id/edt_sNgaySinh"
+                app:layout_constraintTop_toTopOf="@+id/edt_sNgaySinh" />
+
+            <TextView
+                android:id="@+id/txt_sGT"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="20dp"
+                android:text="Giới tính: "
+                android:textColor="#000000"
+                android:textSize="19sp"
+                app:layout_constraintStart_toStartOf="@+id/edt_sNgaySinh"
+                app:layout_constraintTop_toBottomOf="@+id/edt_sNgaySinh" />
+
+            <RadioGroup
+                android:id="@+id/rdGroup_sGT"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="@id/txt_sGT"
+                app:layout_constraintStart_toEndOf="@+id/txt_sGT"
+                app:layout_constraintTop_toTopOf="@+id/txt_sGT">
+
+                <RadioButton
+                    android:id="@+id/rd_sNam"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Nam"
+                    android:textColorLink="@color/brown"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView"
+                    app:layout_constraintStart_toEndOf="@+id/textView"
+                    app:layout_constraintTop_toTopOf="@+id/textView" />
+
+                <RadioButton
+                    android:id="@+id/rd_sNu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="Nữ"
+                    android:textColorLink="@color/brown"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView"
+                    app:layout_constraintStart_toEndOf="@+id/textView"
+                    app:layout_constraintTop_toTopOf="@+id/textView" />
+            </RadioGroup>
+
+            <EditText
+                android:id="@+id/edt_sSDT"
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edt_text_background"
+                android:ems="10"
+                android:hint="Số điện thoại"
+                android:inputType="phone"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                app:layout_constraintStart_toStartOf="@+id/edt_sNgaySinh"
+                app:layout_constraintTop_toBottomOf="@+id/rdGroup_sGT" />
+
+            <EditText
+                android:id="@+id/edt_sEmail"
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edt_text_background"
+                android:ems="10"
+                android:hint="Email"
+                android:inputType="text"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                app:layout_constraintEnd_toEndOf="@+id/edt_sSDT"
+                app:layout_constraintStart_toStartOf="@+id/edt_sSDT"
+                app:layout_constraintTop_toBottomOf="@+id/edt_sSDT" />
+
+            <TextView
+                android:id="@+id/txt_sCV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="20dp"
+                android:text="Chức vụ: "
+                android:textColor="#000000"
+                android:textSize="19sp"
+                app:layout_constraintStart_toStartOf="@+id/edt_sEmail"
+                app:layout_constraintTop_toBottomOf="@+id/edt_sEmail" />
+
+            <RadioGroup
+                android:id="@+id/rdGroup_sCV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="@id/txt_sCV"
+                app:layout_constraintStart_toEndOf="@+id/txt_sCV"
+                app:layout_constraintTop_toTopOf="@+id/txt_sCV">
+
+                <RadioButton
+                    android:id="@+id/rd_sNhanVien"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Nhân viên"
+                    android:textColorLink="@color/brown"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView"
+                    app:layout_constraintStart_toEndOf="@+id/textView"
+                    app:layout_constraintTop_toTopOf="@+id/textView" />
+
+                <RadioButton
+                    android:id="@+id/rd_sQuanLy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="Quản lý"
+                    android:textColorLink="@color/brown"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView"
+                    app:layout_constraintStart_toEndOf="@+id/textView"
+                    app:layout_constraintTop_toTopOf="@+id/textView" />
+            </RadioGroup>
+
+            <Button
+                android:id="@+id/btn_sLuu"
+                android:layout_width="165dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#956A4B"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:text="Lưu"
+                android:textSize="18sp"
+                app:cornerRadius="50dp"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_sHuy"
+                app:layout_constraintEnd_toEndOf="@+id/edt_sEmail"
+                app:layout_constraintTop_toTopOf="@+id/btn_sHuy"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <Button
+                android:id="@+id/btn_sHuy"
+                android:layout_width="165dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#EAEAEA"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:text="Hủy"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:cornerRadius="50dp"
+                app:layout_constraintStart_toStartOf="@+id/edt_sEmail"
+                app:layout_constraintTop_toBottomOf="@+id/rdGroup_sCV" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Danh sách nhân viên"
+            android:textSize="20dp"
+            android:gravity="center"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            />
+
+        <ListView
+            android:id="@+id/lst_NV"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="10dp">
+
+
+        </ListView>
+    </LinearLayout>
+
+</FrameLayout>

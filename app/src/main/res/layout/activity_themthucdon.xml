@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Thêm món"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/spnLoai"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_weight="1"
+        android:padding="10dp"
+        app:layout_constraintStart_toStartOf="@+id/edtDonGiaThem"
+        app:layout_constraintTop_toBottomOf="@+id/edtDonGiaThem">
+
+    </Spinner>
+
+    <EditText
+        android:id="@+id/edtTenMonThem"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/edt_text_background"
+        android:hint="Tên món ăn"
+        android:padding="10dp"
+        android:textColorHint="@android:color/darker_gray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imgHinh" />
+
+    <EditText
+        android:id="@+id/edtDonGiaThem"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/edt_text_background"
+        android:hint="Giá tiền"
+        android:padding="10dp"
+        android:inputType="number"
+        android:textColorHint="@android:color/darker_gray"
+        app:layout_constraintStart_toStartOf="@+id/edtTenMonThem"
+        app:layout_constraintTop_toBottomOf="@+id/edtTenMonThem" />
+
+    <ImageButton
+        android:id="@+id/ibtnThemLoai"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:src="@android:drawable/ic_input_add"
+        app:layout_constraintBottom_toBottomOf="@+id/spnLoai"
+        app:layout_constraintStart_toEndOf="@+id/spnLoai"
+        app:layout_constraintTop_toTopOf="@+id/spnLoai" />
+
+    <ImageView
+        android:id="@+id/imgHinh"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="20dp"
+        android:layout_weight="1"
+        android:padding="10dp"
+        android:src="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+    <Button
+        android:id="@+id/btnThoatThemMon"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="50dp"
+        android:layout_weight="1"
+        android:backgroundTint="#EAEAEA"
+        android:padding="10dp"
+        android:text="Thoát"
+        android:textColor="#000000"
+        app:cornerRadius="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spnLoai" />
+
+    <Button
+        android:id="@+id/btnDongYThemMon"
+        android:layout_width="160sp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        android:layout_weight="1"
+        android:padding="10dp"
+        android:text="Đồng ý"
+        app:cornerRadius="50dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnThoatThemMon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnThoatThemMon" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
