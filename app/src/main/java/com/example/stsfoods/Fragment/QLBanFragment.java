@@ -20,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,25 +28,33 @@ import android.widget.Toast;
 import com.example.stsfoods.Activity.ChiTietBan_Activity;
 import com.example.stsfoods.Activity.ThemBanAn_Activity;
 import com.example.stsfoods.Adapter.BanAdapter;
+import com.example.stsfoods.Adapter.ChiTietBan_Adapter;
 import com.example.stsfoods.DAO.BanAnDAO;
 import com.example.stsfoods.DAO.ChiTietBan_DAO;
 import com.example.stsfoods.DTO.BanAnDTO;
+import com.example.stsfoods.DTO.ChiTietBan_DTO;
 import com.example.stsfoods.DTO.MonDTO;
 
 import com.example.stsfoods.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class QLBanFragment extends Fragment {
 
-    Button btnLuuBan, btnHuyBan, btnXemCTBan;
+    Button btnLuuBan, btnHuyBan, btnXemCTBan, btnThanhToan;
     EditText edtTenBan;
     Spinner spinTinhTrangBan;
     public static int Request_code_them = 111;
     GridView gvBan;
     List<BanAnDTO> lst;
+    List<ChiTietBan_DTO> list_CTB;
     BanAnDAO bDAO;
+    ChiTietBan_DAO ctbDAO;
     BanAdapter bAdapter;
+    ChiTietBan_Adapter ctbAdapter;
     int mabanchon=-1;
 
     ChiTietBan_DAO ctDAO;
@@ -61,6 +70,7 @@ public class QLBanFragment extends Fragment {
         btnLuuBan = (Button) view.findViewById(R.id.btnLuuBan);
         btnHuyBan = (Button) view.findViewById(R.id.btnHuyBan);
         btnXemCTBan = (Button) view.findViewById(R.id.btnXemCTBan);
+        btnThanhToan = (Button) view.findViewById(R.id.btnThanhToan);
         edtTenBan = (EditText) view.findViewById(R.id.edtTenBan);
         spinTinhTrangBan = (Spinner) view.findViewById(R.id.spnTinhTrangBan);
 
@@ -68,6 +78,54 @@ public class QLBanFragment extends Fragment {
         bDAO = new BanAnDAO(getActivity());
         HienThiBanAdapter();
 
+        btnThanhToan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LayoutInflater inflater = getLayoutInflater();
+                View dg = inflater.inflate((R.layout.dialog_thanhtoan), null);
+
+                ctbDAO = new ChiTietBan_DAO(getActivity());
+
+                EditText edtBan = (EditText) dg.findViewById(R.id.edt_dgBan);
+                EditText edtNgay = (EditText) dg.findViewById(R.id.edt_dgNgay);
+                ListView listView = (ListView) dg.findViewById(R.id.lst_dgDSMonHD);
+
+                String date = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
+                edtBan.setText(edtTenBan.getText().toString());
+                edtNgay.setText(date);
+
+                list_CTB = ctbDAO.DSBan(mabanchon);
+                ctbAdapter = new ChiTietBan_Adapter(getActivity(), R.layout.item_qlhoadon, list_CTB);
+                listView.setAdapter(ctbAdapter);
+                ctbAdapter.notifyDataSetChanged();
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("Xác nhận thanh toán");
+                builder.setView(dg);
+                builder.setCancelable(true);
+                builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ctbDAO.XoaCTBanTheoMaBan(mabanchon);
+                        BanAnDTO bDTO = new BanAnDTO();
+                        bDTO.setMaBan(mabanchon);
+                        bDTO.setTenBan(edtTenBan.getText().toString());
+                        bDTO.setTinhTrang("Trống");
+                        bDAO.CapNhatBan(bDTO);
+                        HienThiBanAdapter();
+                        Toast.makeText(getActivity(), "Đã thanh toán bàn.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
 
         gvBan.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -80,6 +138,14 @@ public class QLBanFragment extends Fragment {
 
                 // Lấy tình trạng của bàn được chọn
                 String tinhTrang = selectedBan.getTinhTrang();
+
+                if(tinhTrang.equals("Trống")){
+                    btnXemCTBan.setEnabled(false);
+                    btnThanhToan.setEnabled(false);
+                } else if(tinhTrang.equals("Có người")) {
+                    btnXemCTBan.setEnabled(true);
+                    btnThanhToan.setEnabled(true);
+                }
 
                 // Lấy danh sách tình trạng từ Spinner
                 String[] tinhTrangArray = getResources().getStringArray(R.array.choices);
@@ -169,6 +235,13 @@ public class QLBanFragment extends Fragment {
                 if (updateBan) {
                     // Cập nhật lại bàn và giao diện
                     HienThiBanAdapter();
+                    if(banMoi.getTinhTrang().equals("Trống")){
+                        btnXemCTBan.setEnabled(false);
+                        btnThanhToan.setEnabled(false);
+                    } else if(banMoi.getTinhTrang().equals("Có người")) {
+                        btnXemCTBan.setEnabled(true);
+                        btnThanhToan.setEnabled(true);
+                    }
                     Toast.makeText(getActivity(), "Cập nhật bàn thành công", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getActivity(), "Cập nhật món thất bại", Toast.LENGTH_SHORT).show();

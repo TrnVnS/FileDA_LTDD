@@ -1,5 +1,7 @@
 package com.example.stsfoods.Activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.stsfoods.Adapter.ChiTietBan_Adapter;
 import com.example.stsfoods.Adapter.Mon_Adapter;
+import com.example.stsfoods.Adapter.spinnerMonAdapter;
 import com.example.stsfoods.DAO.BanAnDAO;
 import com.example.stsfoods.DAO.ChiTietBan_DAO;
 import com.example.stsfoods.DAO.MonDAO;
@@ -39,7 +42,7 @@ public class ChiTietBan_Activity extends AppCompatActivity {
     BanAnDAO bDAO;
 
     MonDAO mDAO;
-    Mon_Adapter mAdapter;
+    spinnerMonAdapter mAdapter;
 
     ChiTietBan_DTO ctDTO;
     List<ChiTietBan_DTO> lstCT;
@@ -170,19 +173,37 @@ public class ChiTietBan_Activity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-                // Lấy mã món
-                ChiTietBan_DTO selectedCT = lstCT.get(position);
-                int mamon = selectedCT.getMamon();
+                AlertDialog.Builder builder = new AlertDialog.Builder(ChiTietBan_Activity.this);
+                builder.setTitle("Xác nhận");
+                builder.setMessage("Bạn có chắc muốn xóa?");
+                builder.setCancelable(true);
+                builder.setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Lấy mã món
+                        ChiTietBan_DTO selectedCT = lstCT.get(position);
+                        int mamon = selectedCT.getMamon();
 
-                // Thực hiện xoá theo mã
-                boolean ktmon = ctDAO.XoaCTBanThemMaMon(mamon);
+                        // Thực hiện xoá theo mã
+                        boolean ktmon = ctDAO.XoaCTBanThemMaMon(mamon);
 
-                if (ktmon) {
-                    HienThiDSHoaDon();
-                    Toast.makeText(getApplication(), "Đã xóa món ", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getApplication(), "Xóa món không thành công.", Toast.LENGTH_SHORT).show();
-                }
+                        if (ktmon) {
+                            HienThiDSHoaDon();
+                            Toast.makeText(getApplication(), "Đã xóa món ", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplication(), "Xóa món không thành công.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+
                 return true;
             }
         });
@@ -221,7 +242,7 @@ public class ChiTietBan_Activity extends AppCompatActivity {
         // Truy vấn danh sách món ăn từ cơ sở dữ liệu
         lstMon = mDAO.DSMon();
 
-        mAdapter = new Mon_Adapter(ChiTietBan_Activity.this, R.layout.item_qlmon, lstMon);
+        mAdapter = new spinnerMonAdapter(ChiTietBan_Activity.this, R.layout.spinner_mon, lstMon);
 
         // Thiết lập adapter cho spinner
         spnTenMonCT.setAdapter(mAdapter);

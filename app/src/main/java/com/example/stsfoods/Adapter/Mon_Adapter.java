@@ -54,12 +54,9 @@ public class Mon_Adapter extends BaseAdapter {
 
         TextView txtTenMon = (TextView) view.findViewById(R.id.txtTenMon);
         TextView txtDonGia = (TextView) view.findViewById(R.id.txtDonGia);
-        //TextView txtPhanLoai = (TextView) view.findViewById(R.id.txtPhanLoaiMon);
 
         txtTenMon.setText(lst.get(position).getTenmon());
-        txtTenMon.setTag(lst.get(position).getMamon());
-        txtDonGia.setText(lst.get(position).getDongia());
-        //txtPhanLoai.setText(String.valueOf(LayTenTuMaLoai(lst.get(position).getMaloai())));
+        txtDonGia.setText("Đơn giá: "+lst.get(position).getDongia());
 
         return view;
     }

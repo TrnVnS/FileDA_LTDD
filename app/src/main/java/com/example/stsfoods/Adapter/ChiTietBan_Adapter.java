@@ -62,9 +62,9 @@ public class ChiTietBan_Adapter extends BaseAdapter{
         }
 
         ChiTietBan_DTO chiTietHD = lst.get(position);
-        viewHolderChiTietHD.txtSoLuong.setText(String.valueOf(chiTietHD.getSoluong()));
-        viewHolderChiTietHD.txtTenMon.setText(String.valueOf(LayTenMonTuMaMon(chiTietHD.getMamon())));
-        viewHolderChiTietHD.txtDonGia.setText(String.valueOf(LayDonGiaTuMaMon(chiTietHD.getMamon())));
+        viewHolderChiTietHD.txtSoLuong.setText("Số lượng: " + chiTietHD.getSoluong());
+        viewHolderChiTietHD.txtTenMon.setText("Tên món: " + LayTenMonTuMaMon(chiTietHD.getMamon()));
+        viewHolderChiTietHD.txtDonGia.setText("Đơn giá: " + LayDonGiaTuMaMon(chiTietHD.getMamon()));
 
         return v;
     }

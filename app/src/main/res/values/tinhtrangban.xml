@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="choices">
-        <item>trống</item>
-        <item>có người</item>
+        <item>Trống</item>
+        <item>Có người</item>
     </string-array>
 </resources>

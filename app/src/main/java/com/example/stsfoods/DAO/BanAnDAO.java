@@ -23,7 +23,7 @@ public class BanAnDAO {
     {
         ContentValues values = new ContentValues();
         values.put(CreateDatabase.Ban_Ten, tenban);
-        values.put(CreateDatabase.Ban_TinhTrang, "trống");
+        values.put(CreateDatabase.Ban_TinhTrang, "Trống");
 
         long kt = db.insert(CreateDatabase.TBBan, null,values);
         if (kt != 0)

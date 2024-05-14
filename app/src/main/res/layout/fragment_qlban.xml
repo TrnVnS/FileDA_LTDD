@@ -29,7 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="5dp"
                 android:gravity="center"
                 android:padding="10dp"
                 android:text="Tên bàn: "
@@ -55,7 +55,7 @@
                 android:layout_height="40dp"
                 android:layout_marginEnd="40dp"
                 android:background="@drawable/edt_text_background"
-                android:paddingHorizontal="10dp"
+                android:paddingHorizontal="15dp"
                 android:hint="Tên bàn"
                 android:textSize="16dp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView4"
@@ -109,6 +109,7 @@
                 android:layout_weight="1"
                 android:padding="10dp"
                 android:text="Chi tiết"
+                android:enabled="false"
                 app:cornerRadius="50dp"
                 app:layout_constraintStart_toStartOf="@+id/btnHuyBan"
                 app:layout_constraintTop_toBottomOf="@+id/btnHuyBan" />
@@ -120,6 +121,7 @@
                 android:layout_weight="1"
                 android:padding="10dp"
                 android:text="Thanh toán"
+                android:enabled="false"
                 app:cornerRadius="50dp"
                 app:layout_constraintEnd_toEndOf="@+id/btnLuuBan"
                 app:layout_constraintTop_toBottomOf="@+id/btnLuuBan" />

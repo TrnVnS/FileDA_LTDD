@@ -18,7 +18,7 @@ public class DAO_NhanVien {
 
     public DAO_NhanVien(Context context) {
         CreateDatabase createDatabase = new CreateDatabase(context);
-        db = createDatabase.openWriteable();
+        db = createDatabase.getWritableDatabase();
     }
     public Cursor getNhanVien(String tendn){
         String sTruyVan = "SELECT * FROM " + CreateDatabase.TBNhanVien

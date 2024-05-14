@@ -75,7 +75,7 @@ public class BanAdapter extends BaseAdapter {
         viewHolderBan.imgBan.setTag(position);
 
         // Kiểm tra tình trạng của bàn để hiển thị hoặc ẩn ảnh img_TinhTrang
-        if (b.getTinhTrang().equals("có người")) {
+        if (b.getTinhTrang().equals("Có người")) {
             viewHolderBan.imgTinhTrang.setVisibility(View.VISIBLE);
         } else {
             viewHolderBan.imgTinhTrang.setVisibility(View.INVISIBLE);

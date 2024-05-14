@@ -14,7 +14,6 @@ public class CreateDatabase extends SQLiteOpenHelper {
     public static String TBMon = "Mon";
     public static String TBPhanLoai = "PhanLoai";
     public static String TBBan = "Ban";
-    public static String TBHoaDon = "HoaDon";
     public static String TBChiTietBan = "ChiTietBan";
 
     //Table NhanVien
@@ -43,12 +42,6 @@ public class CreateDatabase extends SQLiteOpenHelper {
     public static String Ban_Ma = "maban";
     public static String Ban_Ten = "ten";
     public static String Ban_TinhTrang = "tinhtrang";
-
-    //Table HoaDon
-    public static String HoaDon_Ma = "mahoadon";
-    public static String HoaDon_Ngay = "ngaylap";
-    public static String HoaDon_TinhTrang = "tinhtrang";
-    public static String HoaDon_MaBan = "maban";
 
     //Table ChiTietBan
     public static String ChiTietBan_MaBan = "maban";
@@ -89,12 +82,6 @@ public class CreateDatabase extends SQLiteOpenHelper {
                 + Ban_Ten + " TEXT, "
                 + Ban_TinhTrang + " TEXT )";
 
-        // Table HoaDon
-        String HoaDon = "CREATE TABLE " + TBHoaDon + "(" + HoaDon_Ma + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + HoaDon_Ngay + " TEXT, "
-                + HoaDon_TinhTrang + " TEXT, "
-                + HoaDon_MaBan + " INTEGER )";
-
         // Table ChiTietHoaDonMon
         String ChiTietBan = "CREATE TABLE " + TBChiTietBan + "(" + ChiTietBan_MaBan + " INTEGER, "
                 + ChiTietBan_MaMon + " INTEGER, "
@@ -105,7 +92,6 @@ public class CreateDatabase extends SQLiteOpenHelper {
         db.execSQL(Mon);
         db.execSQL(PhanLoai);
         db.execSQL(Ban);
-        db.execSQL(HoaDon);
         db.execSQL(ChiTietBan);
 
         //Insert table NhanVien
@@ -119,20 +105,20 @@ public class CreateDatabase extends SQLiteOpenHelper {
                 + NhanVien_MatKhau + ", "
                 + NhanVien_ChucVu + ") VALUES " +
                 "('Trần Văn Sĩ', '12/11/2003', 'Nam', '0384294495', 'sitrnvn@gmail.com', 'tvs', '123', 'Quản lý')," +
-                "('Nguyễn Tấn Tài', '23/05/2003', 'Nam', '1234567890', 'tai@gmail.com', 'ntt', '123', 'Quản lý');";
+                "('Nguyễn Tấn Tài', '23/05/2003', 'Nam', '0328877277', 'tai235@gmail.com', 'ntt', '2323', 'Quản lý');";
         db.execSQL(insertNhanVien);
 
         //Insert table PhanLoai
         String insertPhanLoai = "INSERT INTO " + TBPhanLoai + " ("
                 + PhanLoai_Ten + ") VALUES " +
-                "('Xào'), ('Chiên'), ('Nước'), ('Hâp');";
+                "('Xào'), ('Chiên'), ('Nước'), ('Hấp');";
         db.execSQL(insertPhanLoai);
 
         //Insert table Ban
         String insertBan = "INSERT INTO " + TBBan + " ("
                 + Ban_Ten + ", "
                 + Ban_TinhTrang + ") VALUES " +
-                "('Bàn 1', 'Trống'), ('Bàn 2', 'Trống');";
+                "('Bàn 1', 'Có người'), ('Bàn 2', 'Trống');";
         db.execSQL(insertBan);
 
         //Insert table Mon
@@ -151,20 +137,14 @@ public class CreateDatabase extends SQLiteOpenHelper {
         String Mon = "DROP TABLE IF EXISTS "+TBMon;
         String PhanLoai = "DROP TABLE IF EXISTS "+TBPhanLoai;
         String Ban = "DROP TABLE IF EXISTS "+TBBan;
-        String HoaDon = "DROP TABLE IF EXISTS "+TBHoaDon;
         String ChiTietBan = "DROP TABLE IF EXISTS "+TBChiTietBan;
 
         db.execSQL(NhanVien);
         db.execSQL(Mon);
         db.execSQL(PhanLoai);
         db.execSQL(Ban);
-        db.execSQL(HoaDon);
         db.execSQL(ChiTietBan);
 
         onCreate(db);
-    }
-
-    public SQLiteDatabase openWriteable(){
-        return this.getWritableDatabase();
     }
 }
