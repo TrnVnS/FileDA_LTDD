@@ -107,6 +107,42 @@ public class CreateDatabase extends SQLiteOpenHelper {
         db.execSQL(Ban);
         db.execSQL(HoaDon);
         db.execSQL(ChiTietBan);
+
+        //Insert table NhanVien
+        String insertNhanVien = "INSERT INTO " + TBNhanVien + " ("
+                + NhanVien_HoTen + ", "
+                + NhanVien_NgaySinh + ", "
+                + NhanVien_GioiTinh + ", "
+                + NhanVien_Sdt + ", "
+                + NhanVien_Email + ", "
+                + NhanVien_TenDN + ", "
+                + NhanVien_MatKhau + ", "
+                + NhanVien_ChucVu + ") VALUES " +
+                "('Trần Văn Sĩ', '12/11/2003', 'Nam', '0384294495', 'sitrnvn@gmail.com', 'tvs', '123', 'Quản lý')," +
+                "('Nguyễn Tấn Tài', '23/05/2003', 'Nam', '1234567890', 'tai@gmail.com', 'ntt', '123', 'Quản lý');";
+        db.execSQL(insertNhanVien);
+
+        //Insert table PhanLoai
+        String insertPhanLoai = "INSERT INTO " + TBPhanLoai + " ("
+                + PhanLoai_Ten + ") VALUES " +
+                "('Xào'), ('Chiên'), ('Nước'), ('Hâp');";
+        db.execSQL(insertPhanLoai);
+
+        //Insert table Ban
+        String insertBan = "INSERT INTO " + TBBan + " ("
+                + Ban_Ten + ", "
+                + Ban_TinhTrang + ") VALUES " +
+                "('Bàn 1', 'Trống'), ('Bàn 2', 'Trống');";
+        db.execSQL(insertBan);
+
+        //Insert table Mon
+        String insertMon = "INSERT INTO " + TBMon + " ("
+                + Mon_Ten + ", "
+                + Mon_DonGia + ", "
+                + Mon_HinhAnh + ", "
+                + Mon_MaLoai + ") VALUES " +
+                "('Phở', '30000', '', 2), ('Cà phê', '20000', '', 2);";
+        db.execSQL(insertMon);
     }
 
     @Override

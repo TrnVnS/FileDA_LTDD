@@ -33,7 +33,7 @@ public class ChiTietBan_Activity extends AppCompatActivity {
     ListView lstQLMon;
     EditText edtNgayLap, edtSoLuongCT, edtTenBanCT;
     Spinner spnTenMonCT;
-    Button btnLuuHD, btnHuyHD, btnThemMonHD, btnThoatHD;
+    Button btnLuuCT, btnHuyCT, btnThemMonCT, btnThoatCT;
     int maBan;
 
     BanAnDAO bDAO;
@@ -59,10 +59,10 @@ public class ChiTietBan_Activity extends AppCompatActivity {
         edtSoLuongCT = (EditText) findViewById(R.id.edtSoLuongHD);
         edtTenBanCT = (EditText) findViewById(R.id.edtTenBanHD);
         spnTenMonCT = (Spinner) findViewById(R.id.spinMonHD);
-        btnLuuHD = (Button) findViewById(R.id.btnLuuHD);
-        btnHuyHD = (Button) findViewById(R.id.btnHuyHD);
-        btnThemMonHD = (Button) findViewById(R.id.btnThemMonHD);
-        btnThoatHD = (Button) findViewById(R.id.btnThoatHD);
+        btnLuuCT = (Button) findViewById(R.id.btnLuuHD);
+        btnHuyCT = (Button) findViewById(R.id.btnHuyHD);
+        btnThemMonCT = (Button) findViewById(R.id.btnThemMonHD);
+        btnThoatCT = (Button) findViewById(R.id.btnThoatHD);
 
         bDAO = new BanAnDAO(this);
         mDAO = new MonDAO(this);
@@ -78,7 +78,7 @@ public class ChiTietBan_Activity extends AppCompatActivity {
         String date = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
         edtNgayLap.setText(date);
 
-        btnThemMonHD.setOnClickListener(new View.OnClickListener() {
+        btnThemMonCT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int vitri = spnTenMonCT.getSelectedItemPosition();
@@ -111,6 +111,34 @@ public class ChiTietBan_Activity extends AppCompatActivity {
             }
         });
 
+        btnLuuCT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String soluong = edtSoLuongCT.getText().toString();
+                MonDTO mDTO = (MonDTO) spnTenMonCT.getSelectedItem();
+
+                // Kiểm tra
+                if (soluong.equals("")) {
+                    Toast.makeText(getApplication(), "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                ChiTietBan_DTO ctMoi = new ChiTietBan_DTO();
+                ctMoi.setMaban(maBan);
+                ctMoi.setMamon(mDTO.getMamon());
+                ctMoi.setSoluong(Integer.parseInt(soluong));
+
+                boolean kt = ctDAO.CapNhatChiTietBan(ctMoi);
+
+                if (kt) {
+                    // Cập nhật lại danh sách món và giao diện
+                    HienThiDSHoaDon();
+                    Toast.makeText(getApplication(), "Cập nhật món thành công", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplication(), "Cập nhật món thất bại", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         //Đồng bộ lên edtText
         lstQLMon.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -138,7 +166,28 @@ public class ChiTietBan_Activity extends AppCompatActivity {
             }
         });
 
-        btnHuyHD.setOnClickListener(new View.OnClickListener() {
+        lstQLMon.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                // Lấy mã món
+                ChiTietBan_DTO selectedCT = lstCT.get(position);
+                int mamon = selectedCT.getMamon();
+
+                // Thực hiện xoá theo mã
+                boolean ktmon = ctDAO.XoaCTBanThemMaMon(mamon);
+
+                if (ktmon) {
+                    HienThiDSHoaDon();
+                    Toast.makeText(getApplication(), "Đã xóa món ", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplication(), "Xóa món không thành công.", Toast.LENGTH_SHORT).show();
+                }
+                return true;
+            }
+        });
+
+        btnHuyCT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 edtSoLuongCT.setText("");
@@ -146,7 +195,7 @@ public class ChiTietBan_Activity extends AppCompatActivity {
             }
         });
 
-        btnThoatHD.setOnClickListener(new View.OnClickListener() {
+        btnThoatCT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
