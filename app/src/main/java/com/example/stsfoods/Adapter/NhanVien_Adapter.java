@@ -5,23 +5,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.stsfoods.DTO.DTO_NhanVien;
+import com.example.stsfoods.DTO.NhanVien_DTO;
 import com.example.stsfoods.R;
 
 import java.util.List;
 
-public class NhanVienAdapter extends BaseAdapter {
+public class NhanVien_Adapter extends BaseAdapter {
     Context context;
     int layout;
-    List<DTO_NhanVien> lst;
+    List<NhanVien_DTO> lst;
 
-    public NhanVienAdapter(Context context, int layout, List<DTO_NhanVien> lst) {
+    public NhanVien_Adapter(Context context, int layout, List<NhanVien_DTO> lst) {
         this.context = context;
         this.layout = layout;
         this.lst = lst;

@@ -1,6 +1,6 @@
 package com.example.stsfoods.DTO;
 
-public class BanAnDTO {
+public class Ban_DTO {
     private int MaBan;
     private String TenBan;
     private String TinhTrang;

@@ -16,7 +16,7 @@
         android:theme="@style/Theme.STsFoods"
         tools:targetApi="31">
         <activity
-            android:name=".Activity.ThemLoaiMonActivity"
+            android:name=".Activity.ThemLoaiMon_Activity"
             android:theme="@style/PopUpActivity">
         </activity>
         <activity
@@ -42,10 +42,10 @@
             android:exported="true"
             android:theme="@style/Theme.STsFoods" />
         <activity
-            android:name=".Activity.ThemBanAn_Activity"
+            android:name=".Activity.ThemBan_Activity"
             android:theme="@style/PopUpActivity" />
         <activity
-            android:name=".Activity.ThemThucDonActivity"
+            android:name=".Activity.ThemMon_Activity"
             android:exported="true"
             android:theme="@style/Theme.STsFoods" />
         <activity

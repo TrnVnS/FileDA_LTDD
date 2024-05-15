@@ -4,27 +4,23 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-
-import com.example.stsfoods.DTO.BanAnDTO;
+import com.example.stsfoods.DTO.Ban_DTO;
 import com.example.stsfoods.R;
 
 import java.util.List;
 
-public class BanAdapter extends BaseAdapter {
+public class Ban_Adapter extends BaseAdapter {
 
     Context context;
     int layout;
-    List<BanAnDTO> lst;
+    List<Ban_DTO> lst;
     ViewHolderBan viewHolderBan;
 
-    public BanAdapter (Context context, int layout, List<BanAnDTO> lst)
+    public Ban_Adapter(Context context, int layout, List<Ban_DTO> lst)
     {
         this.context = context;
         this.layout = layout;
@@ -59,7 +55,7 @@ public class BanAdapter extends BaseAdapter {
         {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             viewHolderBan = new ViewHolderBan();
-            v =  inflater.inflate(R.layout.gridview_banan, parent, false);
+            v =  inflater.inflate(R.layout.gridview_ban, parent, false);
             viewHolderBan.imgBan = (ImageView) v.findViewById(R.id.img_Ban);
             viewHolderBan.imgTinhTrang = (ImageView) v.findViewById(R.id.img_TinhTrang);
             viewHolderBan.txtTenBan = (TextView) v.findViewById(R.id.txtTenBan);
@@ -70,7 +66,7 @@ public class BanAdapter extends BaseAdapter {
             viewHolderBan = (ViewHolderBan) v.getTag();
         }
 
-        BanAnDTO b = lst.get(position);
+        Ban_DTO b = lst.get(position);
         viewHolderBan.txtTenBan.setText(b.getTenBan());
         viewHolderBan.imgBan.setTag(position);
 

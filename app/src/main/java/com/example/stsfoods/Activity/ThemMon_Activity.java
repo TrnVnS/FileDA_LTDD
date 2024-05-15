@@ -4,9 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -17,11 +15,11 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.stsfoods.Adapter.PhanLoaiAdapter;
-import com.example.stsfoods.DAO.MonDAO;
-import com.example.stsfoods.DAO.PhanLoaiDAO;
-import com.example.stsfoods.DTO.MonDTO;
-import com.example.stsfoods.DTO.PhanLoaiDTO;
+import com.example.stsfoods.Adapter.PhanLoai_Adapter;
+import com.example.stsfoods.DAO.Mon_DAO;
+import com.example.stsfoods.DAO.PhanLoai_DAO;
+import com.example.stsfoods.DTO.Mon_DTO;
+import com.example.stsfoods.DTO.PhanLoai_DTO;
 import com.example.stsfoods.Fragment.QLMonFragment;
 import com.example.stsfoods.R;
 
@@ -30,43 +28,40 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
 import java.util.List;
 
-public class ThemThucDonActivity extends AppCompatActivity {
+public class ThemMon_Activity extends AppCompatActivity {
 
-    public static int Request_code_themloaitd = 112;
-    public static int Request_code_themhinh = 113;
-    ImageButton ibtnThemLTD;
+    public static int Request_code_themloaimon = 1;
+    public static int Request_code_themhinh = 2;
+    ImageButton ibtnThemLoaiMon;
     Spinner spnLoai;
 
-    MonDAO mDAO;
-    PhanLoaiDAO plDAO;
+    Mon_DAO mDAO;
+    PhanLoai_DAO plDAO;
 
-    List<PhanLoaiDTO> lst;
-    PhanLoaiAdapter plAdapter;
+    List<PhanLoai_DTO> lst;
+    PhanLoai_Adapter plAdapter;
     ImageView imgPicture;
     Button btnDongYThemMon, btnThoatTMon;
     String sDuongDanHinh;
     EditText edtTenMon, edtGia;
-    QLMonFragment qlmon;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_themthucdon);
+        setContentView(R.layout.activity_themmon);
 
         imgPicture = (ImageView) findViewById(R.id.imgHinh);
-        ibtnThemLTD = (ImageButton) findViewById(R.id.ibtnThemLoai);
+        ibtnThemLoaiMon = (ImageButton) findViewById(R.id.ibtnThemLoai);
         spnLoai = (Spinner) findViewById(R.id.spnLoai);
         edtTenMon = (EditText) findViewById(R.id.edtTenMonThem);
         edtGia = (EditText) findViewById(R.id.edtDonGiaThem);
         btnDongYThemMon = (Button) findViewById(R.id.btnDongYThemMon);
         btnThoatTMon = (Button) findViewById(R.id.btnThoatThemMon);
 
-        plDAO = new PhanLoaiDAO(this);
-        mDAO = new MonDAO(this);
+        plDAO = new PhanLoai_DAO(this);
+        mDAO = new Mon_DAO(this);
 
         HienThiDSLoai();
 
@@ -80,11 +75,11 @@ public class ThemThucDonActivity extends AppCompatActivity {
             }
         });
 
-        ibtnThemLTD.setOnClickListener(new View.OnClickListener() {
+        ibtnThemLoaiMon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ThemThucDonActivity.this, ThemLoaiThucDon_Activity.class);
-                startActivityForResult(intent, Request_code_themloaitd);
+                Intent intent = new Intent(ThemMon_Activity.this, ThemLoaiMon_Activity.class);
+                startActivityForResult(intent, Request_code_themloaimon);
 
             }
         });
@@ -98,16 +93,22 @@ public class ThemThucDonActivity extends AppCompatActivity {
                 String gia = edtGia.getText().toString();
 
                 if (tenmon != null && gia != null && !tenmon.trim().equals("") && !gia.equals("")) {
-                    MonDTO m = new MonDTO();
+                    Mon_DTO m = new Mon_DTO();
                     m.setTenmon(tenmon);
                     m.setDongia(gia);
                     m.setMaloai(maloai);
                     m.setHinhanh(sDuongDanHinh);
 
                     boolean kt = mDAO.ThemMon(m);
+
+                    Intent intent = new Intent();
+                    intent.putExtra("ketquathemmon", kt);
+                    setResult(Activity.RESULT_OK, intent);
                     if (kt)
                     {
                         Toast.makeText(getApplication(), "Đã thêm món ăn.", Toast.LENGTH_SHORT).show();
+                        edtTenMon.setText("");
+                        edtGia.setText("");
                     }
                     else {
                         Toast.makeText(getApplication(), "Không thể thêm món.", Toast.LENGTH_SHORT).show();
@@ -131,7 +132,7 @@ public class ThemThucDonActivity extends AppCompatActivity {
 
     private void HienThiDSLoai(){
         lst = plDAO.DSPhanLoai();
-        plAdapter = new PhanLoaiAdapter(ThemThucDonActivity.this, R.layout.spinner_loaithucdon, lst);
+        plAdapter = new PhanLoai_Adapter(ThemMon_Activity.this, R.layout.spinner_loaimon, lst);
         spnLoai.setAdapter(plAdapter);
         plAdapter.notifyDataSetChanged();
     }
@@ -139,12 +140,12 @@ public class ThemThucDonActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == Request_code_themloaitd)
+        if (requestCode == Request_code_themloaimon)
         {
             if (resultCode == Activity.RESULT_OK)
             {
                 Intent intent = data;
-                boolean kt = intent.getBooleanExtra("kiemtraloai", false);
+                boolean kt = intent.getBooleanExtra("ktloaimon", false);
                 if (kt)
                 {
                     Toast.makeText(this, "Thêm thành công", Toast.LENGTH_SHORT).show();

@@ -22,29 +22,29 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.stsfoods.Activity.ThemBanAn_Activity;
-import com.example.stsfoods.Activity.ThemLoaiMonActivity;
-import com.example.stsfoods.Activity.ThemLoaiThucDon_Activity;
-import com.example.stsfoods.Adapter.PhanLoaiAdapter;
-import com.example.stsfoods.Adapter.lstPhanLoaiAdapter;
-import com.example.stsfoods.DAO.MonDAO;
-import com.example.stsfoods.DAO.PhanLoaiDAO;
-import com.example.stsfoods.DTO.PhanLoaiDTO;
+import com.example.stsfoods.Activity.ThemLoaiMon_Activity;
+import com.example.stsfoods.Activity.ThemMon_Activity;
+import com.example.stsfoods.Adapter.lstPhanLoai_Adapter;
+import com.example.stsfoods.DAO.Mon_DAO;
+import com.example.stsfoods.DAO.PhanLoai_DAO;
+import com.example.stsfoods.DTO.PhanLoai_DTO;
 import com.example.stsfoods.R;
 
 import java.util.List;
 
 public class QLLoaiMonFragment extends Fragment {
 
+    //public static int Request_code_themloaimon = 5;
+    ThemMon_Activity themmon;
     Button btnLuu, btnHuy;
     EditText edtLoaiMon;
 
     ListView listView;
-    List<PhanLoaiDTO> lstPhanLoai;
-    lstPhanLoaiAdapter adtPhanLoai;
-    PhanLoaiDAO plDAO;
+    List<PhanLoai_DTO> lstPhanLoai;
+    lstPhanLoai_Adapter adtPhanLoai;
+    PhanLoai_DAO plDAO;
 
-    MonDAO mDAO;
+    Mon_DAO mDAO;
 
     int maLoai;
     @Override
@@ -59,14 +59,14 @@ public class QLLoaiMonFragment extends Fragment {
         btnLuu = (Button) view.findViewById(R.id.btn_LuuLoaiMon);
         btnHuy = (Button) view.findViewById(R.id.btn_HuyLoaiMon);
 
-        mDAO = new MonDAO(getContext());
-        plDAO = new PhanLoaiDAO(getContext());
+        mDAO = new Mon_DAO(getContext());
+        plDAO = new PhanLoai_DAO(getContext());
         showLoaiMon();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                PhanLoaiDTO pl = lstPhanLoai.get(position);
+                PhanLoai_DTO pl = lstPhanLoai.get(position);
                 edtLoaiMon.setText(pl.getTen());
 
                 maLoai = pl.getMa();
@@ -82,12 +82,11 @@ public class QLLoaiMonFragment extends Fragment {
                 builder.setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        AlertDialog alertDialog = builder.create();
-                        alertDialog.show();
-                        PhanLoaiDTO pl = lstPhanLoai.get(position);
+                        PhanLoai_DTO pl = lstPhanLoai.get(position);
                         int maloai = pl.getMa();
                         boolean kt = plDAO.XoaLoai(maloai);
-                        if(kt){
+                        boolean ktMon = mDAO.XoaMonTheoMaLoai(maloai);
+                        if(kt && ktMon){
                             showLoaiMon();
                             Toast.makeText(getActivity(), "Đã xóa loại món.", Toast.LENGTH_SHORT).show();
                         } else {
@@ -114,7 +113,7 @@ public class QLLoaiMonFragment extends Fragment {
                 if(tenloai.isEmpty()){
                     Toast.makeText(getActivity(), "Chưa nhập tên loại món.", Toast.LENGTH_SHORT).show();
                 } else {
-                    PhanLoaiDTO pl = new PhanLoaiDTO();
+                    PhanLoai_DTO pl = new PhanLoai_DTO();
                     pl.setMa(maLoai);
                     pl.setTen(tenloai);
 
@@ -147,8 +146,8 @@ public class QLLoaiMonFragment extends Fragment {
         switch (id)
         {
             case R.id.itThemLoaiMon:
-                Intent intent = new Intent(getActivity(), ThemLoaiMonActivity.class);
-                startActivity(intent);
+                Intent intent = new Intent(getActivity(), ThemLoaiMon_Activity.class);
+                startActivityForResult(intent, themmon.Request_code_themloaimon);
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -157,9 +156,25 @@ public class QLLoaiMonFragment extends Fragment {
     public void showLoaiMon(){
         lstPhanLoai = plDAO.DSPhanLoai();
 
-        adtPhanLoai = new lstPhanLoaiAdapter(getActivity(), R.layout.listitem_loaimon, lstPhanLoai);
+        adtPhanLoai = new lstPhanLoai_Adapter(getActivity(), R.layout.listitem_loaimon, lstPhanLoai);
         listView.setAdapter(adtPhanLoai);
         adtPhanLoai.notifyDataSetChanged();
+    }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == themmon.Request_code_themloaimon) {
+            if (resultCode == Activity.RESULT_OK && data != null) { // Kiểm tra data khác null trước khi sử dụng
+                boolean kt = data.getBooleanExtra("ktloaimon", false);
+                if (kt) {
+                    showLoaiMon();
+                    Toast.makeText(getActivity(), "Thêm loại món thành công", Toast.LENGTH_SHORT).show();
+                }
+            }
+            else {
+                Toast.makeText(getActivity(), "Thêm loại món không thành công", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

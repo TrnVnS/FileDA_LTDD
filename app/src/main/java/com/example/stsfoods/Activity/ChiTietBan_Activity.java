@@ -6,24 +6,21 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.stsfoods.Adapter.ChiTietBan_Adapter;
-import com.example.stsfoods.Adapter.Mon_Adapter;
-import com.example.stsfoods.Adapter.spinnerMonAdapter;
-import com.example.stsfoods.DAO.BanAnDAO;
+import com.example.stsfoods.Adapter.spinnerMon_Adapter;
+import com.example.stsfoods.DAO.Ban_DAO;
 import com.example.stsfoods.DAO.ChiTietBan_DAO;
-import com.example.stsfoods.DAO.MonDAO;
+import com.example.stsfoods.DAO.Mon_DAO;
 import com.example.stsfoods.DTO.ChiTietBan_DTO;
-import com.example.stsfoods.DTO.MonDTO;
+import com.example.stsfoods.DTO.Mon_DTO;
 import com.example.stsfoods.R;
 
 import java.text.SimpleDateFormat;
@@ -39,17 +36,17 @@ public class ChiTietBan_Activity extends AppCompatActivity {
     Button btnLuuCT, btnHuyCT, btnThemMonCT, btnThoatCT;
     int maBan;
 
-    BanAnDAO bDAO;
+    Ban_DAO bDAO;
 
-    MonDAO mDAO;
-    spinnerMonAdapter mAdapter;
+    Mon_DAO mDAO;
+    spinnerMon_Adapter mAdapter;
 
     ChiTietBan_DTO ctDTO;
     List<ChiTietBan_DTO> lstCT;
     ChiTietBan_DAO ctDAO;
     ChiTietBan_Adapter ctAdapter;
 
-    List<MonDTO> lstMon;
+    List<Mon_DTO> lstMon;
 
 
     @Override
@@ -57,18 +54,18 @@ public class ChiTietBan_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chitietban);
 
-        lstQLMon = (ListView) findViewById(R.id.lvDSMonHD);
-        edtNgayLap = (EditText) findViewById(R.id.edtNgayLapHD);
-        edtSoLuongCT = (EditText) findViewById(R.id.edtSoLuongHD);
-        edtTenBanCT = (EditText) findViewById(R.id.edtTenBanHD);
-        spnTenMonCT = (Spinner) findViewById(R.id.spinMonHD);
-        btnLuuCT = (Button) findViewById(R.id.btnLuuHD);
-        btnHuyCT = (Button) findViewById(R.id.btnHuyHD);
-        btnThemMonCT = (Button) findViewById(R.id.btnThemMonHD);
-        btnThoatCT = (Button) findViewById(R.id.btnThoatHD);
+        lstQLMon = (ListView) findViewById(R.id.lvDSMonCT);
+        edtNgayLap = (EditText) findViewById(R.id.edtNgayLapCT);
+        edtSoLuongCT = (EditText) findViewById(R.id.edtSoLuongCT);
+        edtTenBanCT = (EditText) findViewById(R.id.edtTenBanCT);
+        spnTenMonCT = (Spinner) findViewById(R.id.spinMonCT);
+        btnLuuCT = (Button) findViewById(R.id.btnLuuCT);
+        btnHuyCT = (Button) findViewById(R.id.btnHuyCT);
+        btnThemMonCT = (Button) findViewById(R.id.btnThemMonCT);
+        btnThoatCT = (Button) findViewById(R.id.btnThoatCT);
 
-        bDAO = new BanAnDAO(this);
-        mDAO = new MonDAO(this);
+        bDAO = new Ban_DAO(this);
+        mDAO = new Mon_DAO(this);
         ctDAO = new ChiTietBan_DAO(this);
 
         // Lấy mã bàn từ Intent
@@ -118,7 +115,7 @@ public class ChiTietBan_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String soluong = edtSoLuongCT.getText().toString();
-                MonDTO mDTO = (MonDTO) spnTenMonCT.getSelectedItem();
+                Mon_DTO mDTO = (Mon_DTO) spnTenMonCT.getSelectedItem();
 
                 // Kiểm tra
                 if (soluong.equals("")) {
@@ -233,7 +230,7 @@ public class ChiTietBan_Activity extends AppCompatActivity {
     public void HienThiDSHoaDon(){
         lstCT = ctDAO.DSBan(maBan);
 
-        ctAdapter =  new ChiTietBan_Adapter(ChiTietBan_Activity.this, R.layout.item_qlhoadon, lstCT);
+        ctAdapter =  new ChiTietBan_Adapter(ChiTietBan_Activity.this, R.layout.item_qlchitietban, lstCT);
         lstQLMon.setAdapter(ctAdapter);
         ctAdapter.notifyDataSetChanged();
     }
@@ -242,7 +239,7 @@ public class ChiTietBan_Activity extends AppCompatActivity {
         // Truy vấn danh sách món ăn từ cơ sở dữ liệu
         lstMon = mDAO.DSMon();
 
-        mAdapter = new spinnerMonAdapter(ChiTietBan_Activity.this, R.layout.spinner_mon, lstMon);
+        mAdapter = new spinnerMon_Adapter(ChiTietBan_Activity.this, R.layout.spinner_mon, lstMon);
 
         // Thiết lập adapter cho spinner
         spnTenMonCT.setAdapter(mAdapter);

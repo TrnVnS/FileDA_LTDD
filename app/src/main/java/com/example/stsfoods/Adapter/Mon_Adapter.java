@@ -7,12 +7,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.stsfoods.DAO.PhanLoaiDAO;
-import com.example.stsfoods.DTO.BanAnDTO;
-import com.example.stsfoods.DTO.MonDTO;
-import com.example.stsfoods.DTO.PhanLoaiDTO;
+import com.example.stsfoods.DAO.PhanLoai_DAO;
+import com.example.stsfoods.DTO.Mon_DTO;
 import com.example.stsfoods.R;
 import com.squareup.picasso.Picasso;
 
@@ -22,9 +19,9 @@ public class Mon_Adapter extends BaseAdapter {
 
     Context context;
     int layout;
-    List<MonDTO> lst;
+    List<Mon_DTO> lst;
 
-    public Mon_Adapter (Context context, int layout, List<MonDTO> lst)
+    public Mon_Adapter (Context context, int layout, List<Mon_DTO> lst)
     {
         this.context = context;
         this.layout = layout;
@@ -59,21 +56,19 @@ public class Mon_Adapter extends BaseAdapter {
         TextView txtDonGia = (TextView) view.findViewById(R.id.txtDonGia);
         ImageView imgHinhMon = (ImageView) view.findViewById(R.id.imgHinhMon);
 
-        txtTenMon.setText(lst.get(position).getTenmon());
-        txtDonGia.setText("Đơn giá: "+lst.get(position).getDongia());
+        Mon_DTO monDTO = lst.get(position);
 
-        Picasso.get().load("file://" + lst.get(position).getHinhanh()).into(imgHinhMon);
+        txtTenMon.setText(monDTO.getTenmon());
+        txtDonGia.setText("Đơn giá: "+monDTO.getDongia());
 
+        if (monDTO.getHinhanh() != null && !monDTO.getHinhanh().isEmpty()) {
+            // Nếu có hình ảnh, tải hình ảnh bằng Picasso
+            Picasso.get().load("file://" + monDTO.getHinhanh()).into(imgHinhMon);
+        } else {
+            // Nếu không có hình ảnh, đặt hình ảnh mặc định của máy vào ImageView
+            imgHinhMon.setImageResource(R.drawable.logo); // hoặc hình ảnh khác tùy chọn
+        }
         return view;
     }
 
-    // Phương thức để lấy tên loại từ mã loại
-    private String LayTenTuMaLoai(int maloai) {
-        PhanLoaiDAO plDAO = new PhanLoaiDAO(context);
-        String tenloai = plDAO.LayTenUngVoiMaLoai(maloai);
-        if (tenloai != null) {
-            return tenloai;
-        }
-        return null; // Trả về null nếu không tìm thấy
-    }
 }

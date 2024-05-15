@@ -1,6 +1,6 @@
 package com.example.stsfoods.DTO;
 
-public class PhanLoaiDTO {
+public class PhanLoai_DTO {
     public int ma;
     public String ten;
 

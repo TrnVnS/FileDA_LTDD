@@ -5,16 +5,15 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.stsfoods.DTO.BanAnDTO;
-import com.example.stsfoods.DTO.PhanLoaiDTO;
+import com.example.stsfoods.DTO.PhanLoai_DTO;
 import com.example.stsfoods.Database.CreateDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PhanLoaiDAO {
+public class PhanLoai_DAO {
     SQLiteDatabase db;
-    public PhanLoaiDAO (Context context)
+    public PhanLoai_DAO(Context context)
     {
         CreateDatabase createDatabase = new CreateDatabase(context);
         db = createDatabase.getWritableDatabase();
@@ -31,7 +30,7 @@ public class PhanLoaiDAO {
         else
             return false;
     }
-    public boolean CapNhatLoai(PhanLoaiDTO pl)
+    public boolean CapNhatLoai(PhanLoai_DTO pl)
     {
         ContentValues values = new ContentValues();
         values.put(CreateDatabase.PhanLoai_Ten, pl.getTen());
@@ -57,16 +56,16 @@ public class PhanLoaiDAO {
         }
     }
 
-    public List<PhanLoaiDTO> DSPhanLoai()
+    public List<PhanLoai_DTO> DSPhanLoai()
     {
-        List<PhanLoaiDTO> lst = new ArrayList<PhanLoaiDTO>();
+        List<PhanLoai_DTO> lst = new ArrayList<PhanLoai_DTO>();
 
         String sTruyVan = "SELECT * FROM " + CreateDatabase.TBPhanLoai;
         Cursor c = db.rawQuery(sTruyVan, null);
         c.moveToFirst();
         while (!c.isAfterLast())
         {
-            PhanLoaiDTO pl = new PhanLoaiDTO();
+            PhanLoai_DTO pl = new PhanLoai_DTO();
             pl.setMa(c.getInt(c.getColumnIndex(CreateDatabase.PhanLoai_Ma)));
             pl.setTen(c.getString(c.getColumnIndex(CreateDatabase.PhanLoai_Ten)));
 

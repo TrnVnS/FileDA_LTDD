@@ -1,6 +1,6 @@
 package com.example.stsfoods.DTO;
 
-public class DTO_NhanVien {
+public class NhanVien_DTO {
     private int maNV;
     private String hoTen;
     private String ngaySinh;

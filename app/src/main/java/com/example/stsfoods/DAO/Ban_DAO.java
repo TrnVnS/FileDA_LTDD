@@ -5,15 +5,15 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.stsfoods.DTO.BanAnDTO;
+import com.example.stsfoods.DTO.Ban_DTO;
 import com.example.stsfoods.Database.CreateDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BanAnDAO {
+public class Ban_DAO {
     SQLiteDatabase db;
-    public BanAnDAO (Context context)
+    public Ban_DAO(Context context)
     {
         CreateDatabase createDatabase = new CreateDatabase(context);
         db = createDatabase.getWritableDatabase();
@@ -32,7 +32,7 @@ public class BanAnDAO {
             return false;
     }
 
-    public boolean CapNhatBan(BanAnDTO ban)
+    public boolean CapNhatBan(Ban_DTO ban)
     {
         ContentValues values = new ContentValues();
         values.put(CreateDatabase.Ban_Ma, ban.getMaBan());
@@ -61,15 +61,15 @@ public class BanAnDAO {
         }
     }
 
-    public List<BanAnDTO> LayDSBan()
+    public List<Ban_DTO> LayDSBan()
     {
-        List<BanAnDTO> lst = new ArrayList<BanAnDTO>();
+        List<Ban_DTO> lst = new ArrayList<Ban_DTO>();
         String sTruyVan = "SELECT * FROM " + CreateDatabase.TBBan;
         Cursor c = db.rawQuery(sTruyVan, null);
         c.moveToFirst();
         while (!c.isAfterLast())
         {
-            BanAnDTO b = new BanAnDTO();
+            Ban_DTO b = new Ban_DTO();
             b.setMaBan(c.getInt(c.getColumnIndex(CreateDatabase.Ban_Ma)));
             b.setTenBan(c.getString(c.getColumnIndex(CreateDatabase.Ban_Ten)));
             b.setTinhTrang(c.getString(c.getColumnIndex(CreateDatabase.Ban_TinhTrang)));

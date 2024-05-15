@@ -7,19 +7,19 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.example.stsfoods.DTO.PhanLoaiDTO;
+import com.example.stsfoods.DTO.PhanLoai_DTO;
 import com.example.stsfoods.R;
 
 import java.util.List;
 
-public class PhanLoaiAdapter extends BaseAdapter {
+public class PhanLoai_Adapter extends BaseAdapter {
 
     Context context;
     int layout;
-    List<PhanLoaiDTO> lst;
+    List<PhanLoai_DTO> lst;
     ViewHolderPhanLoai viewHolderPhanLoai;
 
-    public PhanLoaiAdapter(Context context, int layout, List<PhanLoaiDTO> lst) {
+    public PhanLoai_Adapter(Context context, int layout, List<PhanLoai_DTO> lst) {
         this.context = context;
         this.layout = layout;
         this.lst = lst;
@@ -52,7 +52,7 @@ public class PhanLoaiAdapter extends BaseAdapter {
         if (view == null) {
             viewHolderPhanLoai = new ViewHolderPhanLoai();
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.spinner_loaithucdon, parent, false);
+            view = inflater.inflate(R.layout.spinner_loaimon, parent, false);
 
             viewHolderPhanLoai.txtTenLoai = (TextView) view.findViewById(R.id.spinTenLoai);
 
@@ -61,7 +61,7 @@ public class PhanLoaiAdapter extends BaseAdapter {
             viewHolderPhanLoai = (ViewHolderPhanLoai) view.getTag();
         }
 
-        PhanLoaiDTO plDTO = lst.get(position);
+        PhanLoai_DTO plDTO = lst.get(position);
         viewHolderPhanLoai.txtTenLoai.setText(plDTO.getTen());
         viewHolderPhanLoai.txtTenLoai.setTag(plDTO.getMa());
 

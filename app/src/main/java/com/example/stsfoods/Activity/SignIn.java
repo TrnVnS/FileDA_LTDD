@@ -1,9 +1,7 @@
 package com.example.stsfoods.Activity;
 
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.os.Bundle;
-import android.text.Selection;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -19,17 +17,10 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.stsfoods.DAO.DAO_NhanVien;
-import com.example.stsfoods.DTO.DTO_NhanVien;
-import com.example.stsfoods.Database.CreateDatabase;
+import com.example.stsfoods.DTO.NhanVien_DTO;
 import com.example.stsfoods.R;
-import com.google.android.material.datepicker.MaterialDatePicker;
-import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 
-import java.text.MessageFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 public class SignIn extends AppCompatActivity {
 
@@ -117,7 +108,7 @@ public class SignIn extends AppCompatActivity {
                     }  else if(dao_nv.ktraNguoiDung(tendn)){
                         Toast.makeText(SignIn.this, "Tên người dùng đã tồn tại.", Toast.LENGTH_LONG).show();
                     } else {
-                        DTO_NhanVien nv = new DTO_NhanVien();
+                        NhanVien_DTO nv = new NhanVien_DTO();
                         nv.setHoTen(hoten);
                         nv.setNgaySinh(ngaysinh);
                         nv.setGioiTinh(gioitinh);

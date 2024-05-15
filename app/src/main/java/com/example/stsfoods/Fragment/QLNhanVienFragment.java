@@ -1,6 +1,5 @@
 package com.example.stsfoods.Fragment;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
@@ -8,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.util.Patterns;
@@ -22,18 +20,14 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.example.stsfoods.Activity.ThemNhanVien_Activity;
-import com.example.stsfoods.Adapter.BanAdapter;
-import com.example.stsfoods.Adapter.NhanVienAdapter;
-import com.example.stsfoods.DAO.BanAnDAO;
+import com.example.stsfoods.Adapter.NhanVien_Adapter;
 import com.example.stsfoods.DAO.DAO_NhanVien;
-import com.example.stsfoods.DTO.BanAnDTO;
-import com.example.stsfoods.DTO.DTO_NhanVien;
+import com.example.stsfoods.DTO.NhanVien_DTO;
 import com.example.stsfoods.R;
 
 import java.util.Calendar;
@@ -42,10 +36,10 @@ import java.util.List;
 public class QLNhanVienFragment extends Fragment {
 
     ListView lst;
-    List<DTO_NhanVien> lst_nv;
+    List<NhanVien_DTO> lst_nv;
     DAO_NhanVien nvDAO;
-    DTO_NhanVien nvDTO;
-    NhanVienAdapter nvAdapter;
+    NhanVien_DTO nvDTO;
+    NhanVien_Adapter nvAdapter;
 
     EditText edtHoten, edtNgaysinh, edtSDT, edtEmail;
     RadioButton rdNam, rdNu, rdNV, rdQL;
@@ -79,7 +73,7 @@ public class QLNhanVienFragment extends Fragment {
         lst.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                DTO_NhanVien nv = lst_nv.get(position);
+                NhanVien_DTO nv = lst_nv.get(position);
                 edtHoten.setText(nv.getHoTen());
                 edtNgaysinh.setText(nv.getNgaySinh());
                 edtEmail.setText(nv.getEmail());
@@ -108,7 +102,7 @@ public class QLNhanVienFragment extends Fragment {
                 builder.setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        DTO_NhanVien nv = lst_nv.get(position);
+                        NhanVien_DTO nv = lst_nv.get(position);
                         manv = nv.getMaNV();
                         boolean kt = nvDAO.deleteNhanVien(manv);
                         if(kt){
@@ -156,7 +150,7 @@ public class QLNhanVienFragment extends Fragment {
                     } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                         Toast.makeText(getActivity(), "Email không hợp lệ.", Toast.LENGTH_LONG).show();
                     } else {
-                        DTO_NhanVien nv = new DTO_NhanVien();
+                        NhanVien_DTO nv = new NhanVien_DTO();
                         nv.setMaNV(manv);
                         nv.setHoTen(hoten);
                         nv.setNgaySinh(ngaysinh);
@@ -233,7 +227,7 @@ public class QLNhanVienFragment extends Fragment {
     public void HienThiNhanVienAdapter(){
         lst_nv = nvDAO.getAllNhanVien();
 
-        nvAdapter = new NhanVienAdapter(getActivity(), R.layout.listitem_nv, lst_nv);
+        nvAdapter = new NhanVien_Adapter(getActivity(), R.layout.listitem_nv, lst_nv);
         lst.setAdapter(nvAdapter);
         nvAdapter.notifyDataSetChanged();
 

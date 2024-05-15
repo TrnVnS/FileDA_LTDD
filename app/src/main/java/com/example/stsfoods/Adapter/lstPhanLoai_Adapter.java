@@ -7,18 +7,17 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.example.stsfoods.DTO.MonDTO;
-import com.example.stsfoods.DTO.PhanLoaiDTO;
+import com.example.stsfoods.DTO.PhanLoai_DTO;
 import com.example.stsfoods.R;
 
 import java.util.List;
 
-public class spinnerMonAdapter extends BaseAdapter {
+public class lstPhanLoai_Adapter extends BaseAdapter {
     Context context;
     int layout;
-    List<MonDTO> lst;
+    List<PhanLoai_DTO> lst;
 
-    public spinnerMonAdapter (Context context, int layout, List<MonDTO> lst) {
+    public lstPhanLoai_Adapter(Context context, int layout, List<PhanLoai_DTO> lst) {
         this.context = context;
         this.layout = layout;
         this.lst = lst;
@@ -36,7 +35,7 @@ public class spinnerMonAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return lst.get(position).getMamon();
+        return lst.get(position).getMa();
     }
 
     @Override
@@ -44,11 +43,11 @@ public class spinnerMonAdapter extends BaseAdapter {
 
         View view = convertView;
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        view = inflater.inflate(R.layout.spinner_mon, parent, false);
+        view = inflater.inflate(R.layout.listitem_loaimon, parent, false);
 
-        TextView txtMon = (TextView) view.findViewById(R.id.spinTenMon);
+        TextView txtLoaiMon = (TextView) view.findViewById(R.id.txt_tenLoaiMon);
 
-        txtMon.setText(lst.get(position).getTenmon());
+        txtLoaiMon.setText(lst.get(position).getTen());
 
         return view;
     }

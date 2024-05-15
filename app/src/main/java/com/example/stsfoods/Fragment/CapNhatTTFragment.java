@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import com.example.stsfoods.Activity.MainActivity;
 import com.example.stsfoods.DAO.DAO_NhanVien;
-import com.example.stsfoods.DTO.DTO_NhanVien;
+import com.example.stsfoods.DTO.NhanVien_DTO;
 import com.example.stsfoods.R;
 
 import java.util.Calendar;
@@ -48,7 +48,7 @@ public class CapNhatTTFragment extends Fragment {
 
         m = (MainActivity) getActivity();
 
-        DTO_NhanVien nvDTO = new DTO_NhanVien();
+        NhanVien_DTO nvDTO = new NhanVien_DTO();
         DAO_NhanVien nvDAO = new DAO_NhanVien(getActivity());
         Cursor cursor = nvDAO.getNhanVien(m.getsTendn());
         cursor.moveToFirst();

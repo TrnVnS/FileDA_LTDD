@@ -4,25 +4,23 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.view.ContextMenu;
 
-import com.example.stsfoods.DTO.MonDTO;
-import com.example.stsfoods.DTO.PhanLoaiDTO;
+import com.example.stsfoods.DTO.Mon_DTO;
 import com.example.stsfoods.Database.CreateDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MonDAO {
+public class Mon_DAO {
 
     SQLiteDatabase db;
-    public MonDAO (Context context)
+    public Mon_DAO(Context context)
     {
         CreateDatabase createDatabase = new CreateDatabase(context);
         db = createDatabase.getWritableDatabase();
     }
 
-    public boolean ThemMon(MonDTO mon)
+    public boolean ThemMon(Mon_DTO mon)
     {
         ContentValues values = new ContentValues();
         values.put(CreateDatabase.Mon_Ten, mon.getTenmon());
@@ -40,13 +38,14 @@ public class MonDAO {
         return false;
     }
 
-    public boolean CapNhatMon(MonDTO mon)
+    public boolean CapNhatMon(Mon_DTO mon)
     {
 
         ContentValues values = new ContentValues();
         values.put(CreateDatabase.Mon_Ten, mon.getTenmon());
         values.put(CreateDatabase.Mon_DonGia, mon.getDongia());
         values.put(CreateDatabase.Mon_MaLoai, mon.getMaloai());
+        values.put(CreateDatabase.Mon_HinhAnh, mon.getHinhanh());
 
         int kt = db.update(CreateDatabase.TBMon, values, CreateDatabase.Mon_Ma + " = ?", new String[]{String.valueOf(mon.getMamon())});
 
@@ -83,16 +82,16 @@ public class MonDAO {
         }
     }
 
-    public List<MonDTO> DSMon()
+    public List<Mon_DTO> DSMon()
     {
-        List<MonDTO> lst = new ArrayList<MonDTO>();
+        List<Mon_DTO> lst = new ArrayList<Mon_DTO>();
 
         String sTruyVan = "SELECT * FROM " + CreateDatabase.TBMon;
         Cursor c = db.rawQuery(sTruyVan, null);
         c.moveToFirst();
         while (!c.isAfterLast())
         {
-            MonDTO m = new MonDTO();
+            Mon_DTO m = new Mon_DTO();
             m.setMamon(c.getInt(c.getColumnIndex(CreateDatabase.Mon_Ma)));
             m.setTenmon(c.getString(c.getColumnIndex(CreateDatabase.Mon_Ten)));
             m.setDongia(c.getString(c.getColumnIndex(CreateDatabase.Mon_DonGia)));
@@ -106,14 +105,14 @@ public class MonDAO {
         return lst;
     }
 
-    public List<MonDTO> DSTenMon() {
-        List<MonDTO> lstMon = new ArrayList<>();
+    public List<Mon_DTO> DSTenMon() {
+        List<Mon_DTO> lstMon = new ArrayList<>();
 
         String sTruyVan = "SELECT * FROM " + CreateDatabase.TBMon;
         Cursor c = db.rawQuery(sTruyVan, null);
         if (c.moveToFirst()) {
             do {
-                MonDTO mon = new MonDTO();
+                Mon_DTO mon = new Mon_DTO();
                 mon.setMamon(c.getInt(c.getColumnIndex(CreateDatabase.Mon_Ma)));
                 mon.setTenmon(c.getString(c.getColumnIndex(CreateDatabase.Mon_Ten)));
                 lstMon.add(mon);

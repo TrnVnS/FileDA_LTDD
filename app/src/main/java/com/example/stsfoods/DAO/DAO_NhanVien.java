@@ -4,9 +4,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.stsfoods.DTO.DTO_NhanVien;
+import com.example.stsfoods.DTO.NhanVien_DTO;
 import com.example.stsfoods.Database.CreateDatabase;
 
 import java.util.ArrayList;
@@ -27,14 +26,14 @@ public class DAO_NhanVien {
         Cursor c = db.rawQuery(sTruyVan, null);
         return  c;
     }
-    public List<DTO_NhanVien> getAllNhanVien(){
+    public List<NhanVien_DTO> getAllNhanVien(){
 
-        List<DTO_NhanVien> lst_nv = new ArrayList<DTO_NhanVien>();
+        List<NhanVien_DTO> lst_nv = new ArrayList<NhanVien_DTO>();
         String sQuery = "SELECT * FROM "+CreateDatabase.TBNhanVien;
         Cursor cursor = db.rawQuery(sQuery, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()){
-            DTO_NhanVien nv = new DTO_NhanVien();
+            NhanVien_DTO nv = new NhanVien_DTO();
             nv.setMaNV(cursor.getInt(cursor.getColumnIndex(CreateDatabase.NhanVien_Ma)));
             nv.setHoTen(cursor.getString(cursor.getColumnIndex(CreateDatabase.NhanVien_HoTen)));
             nv.setNgaySinh(cursor.getString(cursor.getColumnIndex(CreateDatabase.NhanVien_NgaySinh)));
@@ -50,7 +49,7 @@ public class DAO_NhanVien {
         return lst_nv;
     }
 
-    public boolean addNhanVien(DTO_NhanVien nv){
+    public boolean addNhanVien(NhanVien_DTO nv){
         ContentValues values = new ContentValues();
         values.put(CreateDatabase.NhanVien_HoTen, nv.getHoTen());
         values.put(CreateDatabase.NhanVien_NgaySinh, nv.getNgaySinh());
@@ -68,7 +67,7 @@ public class DAO_NhanVien {
             return true;
     }
 
-    public boolean updateNhanVien(DTO_NhanVien nv){
+    public boolean updateNhanVien(NhanVien_DTO nv){
         ContentValues values = new ContentValues();
         values.put(CreateDatabase.NhanVien_HoTen, nv.getHoTen());
         values.put(CreateDatabase.NhanVien_NgaySinh, nv.getNgaySinh());
@@ -91,7 +90,7 @@ public class DAO_NhanVien {
         else
             return true;
     }
-    public boolean updateTTTK(DTO_NhanVien nv){
+    public boolean updateTTTK(NhanVien_DTO nv){
         ContentValues values = new ContentValues();
         values.put(CreateDatabase.NhanVien_HoTen, nv.getHoTen());
         values.put(CreateDatabase.NhanVien_NgaySinh, nv.getNgaySinh());

@@ -1,8 +1,6 @@
 package com.example.stsfoods.Activity;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -12,15 +10,11 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.stsfoods.DAO.DAO_NhanVien;
-import com.example.stsfoods.DTO.DTO_NhanVien;
+import com.example.stsfoods.DTO.NhanVien_DTO;
 import com.example.stsfoods.Fragment.QLNhanVienFragment;
 import com.example.stsfoods.R;
 
@@ -85,7 +79,7 @@ public class ThemNhanVien_Activity extends AppCompatActivity {
                     } else if(nvDAO.ktraNguoiDung(tendn)){
                         Toast.makeText(ThemNhanVien_Activity.this, "Tên người dùng đã tồn tại.", Toast.LENGTH_LONG).show();
                     } else {
-                        DTO_NhanVien nv = new DTO_NhanVien();
+                        NhanVien_DTO nv = new NhanVien_DTO();
                         nv.setHoTen(hoten);
                         nv.setNgaySinh(ngaysinh);
                         nv.setGioiTinh(gioitinh);

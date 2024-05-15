@@ -1,6 +1,6 @@
 package com.example.stsfoods.DTO;
 
-public class MonDTO {
+public class Mon_DTO {
 
     int mamon, maloai;
     String tenmon, dongia, hinhanh;

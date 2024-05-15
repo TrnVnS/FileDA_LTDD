@@ -11,25 +11,20 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.stsfoods.DAO.PhanLoaiDAO;
-import com.example.stsfoods.Fragment.QLLoaiMonFragment;
+import com.example.stsfoods.DAO.PhanLoai_DAO;
 import com.example.stsfoods.R;
 
-public class ThemLoaiThucDon_Activity extends AppCompatActivity {
-
+public class ThemLoaiMon_Activity extends AppCompatActivity {
     Button btnDongY;
     EditText edtTen;
-    PhanLoaiDAO plDAO;
-
+    PhanLoai_DAO plDAO;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_themloaithucdon);
-
-        edtTen = (EditText) findViewById(R.id.edtTenLoai);
-        btnDongY = (Button) findViewById(R.id.btnThemLoai);
-        plDAO = new PhanLoaiDAO(this);
+        setContentView(R.layout.activity_themloaimon);
+        edtTen = (EditText) findViewById(R.id.edtTenLoaiMon);
+        btnDongY = (Button) findViewById(R.id.btnThemLoaiMon);
+        plDAO = new PhanLoai_DAO(this);
 
         btnDongY.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,14 +32,13 @@ public class ThemLoaiThucDon_Activity extends AppCompatActivity {
                 String tenloai = edtTen.getText().toString();
                 if (tenloai != null && !tenloai.equals("")) {
                     boolean kt = plDAO.ThemLoai(tenloai);
-
                     Intent intent = new Intent();
-                    intent.putExtra("kiemtraloai", kt);
+                    intent.putExtra("ktloaimon", kt);
                     setResult(Activity.RESULT_OK, intent);
-
                     finish();
+
                 } else {
-                    Toast.makeText(ThemLoaiThucDon_Activity.this, "Vui lòng nhập tên loại món.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ThemLoaiMon_Activity.this, "Vui lòng nhập tên loại món.", Toast.LENGTH_SHORT).show();
                 }
             }
         });

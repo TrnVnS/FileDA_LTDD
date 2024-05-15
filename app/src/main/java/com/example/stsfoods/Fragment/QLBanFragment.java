@@ -22,18 +22,16 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.stsfoods.Activity.ChiTietBan_Activity;
-import com.example.stsfoods.Activity.ThemBanAn_Activity;
-import com.example.stsfoods.Adapter.BanAdapter;
+import com.example.stsfoods.Activity.ThemBan_Activity;
+import com.example.stsfoods.Adapter.Ban_Adapter;
 import com.example.stsfoods.Adapter.ChiTietBan_Adapter;
-import com.example.stsfoods.DAO.BanAnDAO;
+import com.example.stsfoods.DAO.Ban_DAO;
 import com.example.stsfoods.DAO.ChiTietBan_DAO;
-import com.example.stsfoods.DTO.BanAnDTO;
+import com.example.stsfoods.DTO.Ban_DTO;
 import com.example.stsfoods.DTO.ChiTietBan_DTO;
-import com.example.stsfoods.DTO.MonDTO;
 
 import com.example.stsfoods.R;
 
@@ -47,13 +45,13 @@ public class QLBanFragment extends Fragment {
     Button btnLuuBan, btnHuyBan, btnXemCTBan, btnThanhToan;
     EditText edtTenBan;
     Spinner spinTinhTrangBan;
-    public static int Request_code_them = 111;
+    public static int Request_code_them = 3;
     GridView gvBan;
-    List<BanAnDTO> lst;
+    List<Ban_DTO> lst;
     List<ChiTietBan_DTO> list_CTB;
-    BanAnDAO bDAO;
+    Ban_DAO bDAO;
     ChiTietBan_DAO ctbDAO;
-    BanAdapter bAdapter;
+    Ban_Adapter bAdapter;
     ChiTietBan_Adapter ctbAdapter;
     int mabanchon=-1;
 
@@ -75,7 +73,7 @@ public class QLBanFragment extends Fragment {
         spinTinhTrangBan = (Spinner) view.findViewById(R.id.spnTinhTrangBan);
 
         ctDAO = new ChiTietBan_DAO(getActivity());
-        bDAO = new BanAnDAO(getActivity());
+        bDAO = new Ban_DAO(getActivity());
         HienThiBanAdapter();
 
         btnThanhToan.setOnClickListener(new View.OnClickListener() {
@@ -95,7 +93,7 @@ public class QLBanFragment extends Fragment {
                 edtNgay.setText(date);
 
                 list_CTB = ctbDAO.DSBan(mabanchon);
-                ctbAdapter = new ChiTietBan_Adapter(getActivity(), R.layout.item_qlhoadon, list_CTB);
+                ctbAdapter = new ChiTietBan_Adapter(getActivity(), R.layout.item_qlchitietban, list_CTB);
                 listView.setAdapter(ctbAdapter);
                 ctbAdapter.notifyDataSetChanged();
 
@@ -113,7 +111,7 @@ public class QLBanFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         ctbDAO.XoaCTBanTheoMaBan(mabanchon);
-                        BanAnDTO bDTO = new BanAnDTO();
+                        Ban_DTO bDTO = new Ban_DTO();
                         bDTO.setMaBan(mabanchon);
                         bDTO.setTenBan(edtTenBan.getText().toString());
                         bDTO.setTinhTrang("Trống");
@@ -130,7 +128,7 @@ public class QLBanFragment extends Fragment {
         gvBan.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                BanAnDTO selectedBan = lst.get(position);
+                Ban_DTO selectedBan = lst.get(position);
                 edtTenBan.setText(selectedBan.getTenBan());
 
                 //Lấy mã bàn
@@ -178,13 +176,14 @@ public class QLBanFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // Lấy đối tượng BanTDO tương ứng với vị trí trong danh sách
-                        BanAnDTO selectedBan = lst.get(position);
+                        Ban_DTO selectedBan = lst.get(position);
                         //Lấy mã bàn
                         int maban = selectedBan.getMaBan();
                         // Gọi phương thức xóa món từ lớp DAO
-                        boolean delete = bDAO.XoaBan(maban);
+                        boolean ktBan = bDAO.XoaBan(maban);
+                        boolean ktCT = ctDAO.XoaCTBanTheoMaBan(maban);
                         // Kiểm tra kết quả xóa và thông báo cho người dùng
-                        if (delete) {
+                        if (ktBan && ktCT) {
                             // Cập nhật lại danh sách món và giao diện
                             HienThiBanAdapter();
                             Toast.makeText(getActivity(), "Đã xóa bàn.", Toast.LENGTH_SHORT).show();
@@ -223,7 +222,7 @@ public class QLBanFragment extends Fragment {
                 }
 
                 // Tạo đối tượng MonDTO mới với thông tin đã cập nhật
-                BanAnDTO banMoi = new BanAnDTO();
+                Ban_DTO banMoi = new Ban_DTO();
                 banMoi.setMaBan(mabanchon);
                 banMoi.setTenBan(txtTenBan);
                 banMoi.setTinhTrang(selectedTinhTrang);
@@ -293,7 +292,7 @@ public class QLBanFragment extends Fragment {
         switch (id)
         {
             case R.id.itThemBan:
-                Intent intent = new Intent(getActivity(), ThemBanAn_Activity.class);
+                Intent intent = new Intent(getActivity(), ThemBan_Activity.class);
                 startActivityForResult(intent, Request_code_them);
                 break;
         }
@@ -305,7 +304,7 @@ public class QLBanFragment extends Fragment {
     {
         lst = bDAO.LayDSBan();
 
-        bAdapter = new BanAdapter(getActivity(), R.layout.gridview_banan, lst);
+        bAdapter = new Ban_Adapter(getActivity(), R.layout.gridview_ban, lst);
         gvBan.setAdapter(bAdapter);
         bAdapter.notifyDataSetChanged();
     }

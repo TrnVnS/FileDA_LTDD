@@ -64,7 +64,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
         <EditText
-            android:id="@+id/edtTenBanHD"
+            android:id="@+id/edtTenBanCT"
             android:layout_width="200dp"
             android:layout_height="40dp"
             android:layout_marginEnd="30dp"
@@ -77,17 +77,17 @@
             app:layout_constraintTop_toTopOf="@+id/textView7" />
 
         <Spinner
-            android:id="@+id/spinMonHD"
+            android:id="@+id/spinMonCT"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textSize="16dp"
             app:layout_constraintBottom_toBottomOf="@+id/textView9"
-            app:layout_constraintEnd_toEndOf="@+id/edtNgayLapHD"
+            app:layout_constraintEnd_toEndOf="@+id/edtNgayLapCT"
             app:layout_constraintTop_toTopOf="@+id/textView9" />
 
         <EditText
-            android:id="@+id/edtSoLuongHD"
+            android:id="@+id/edtSoLuongCT"
             android:layout_width="200dp"
             android:layout_height="40dp"
             android:paddingHorizontal="15dp"
@@ -95,11 +95,11 @@
             android:inputType="number"
             android:textSize="16dp"
             app:layout_constraintBottom_toBottomOf="@+id/textView10"
-            app:layout_constraintEnd_toEndOf="@+id/spinMonHD"
+            app:layout_constraintEnd_toEndOf="@+id/spinMonCT"
             app:layout_constraintTop_toTopOf="@+id/textView10" />
 
         <EditText
-            android:id="@+id/edtNgayLapHD"
+            android:id="@+id/edtNgayLapCT"
             android:layout_width="200dp"
             android:layout_height="40dp"
             android:paddingHorizontal="15dp"
@@ -107,11 +107,11 @@
             android:textSize="16dp"
             android:enabled="false"
             app:layout_constraintBottom_toBottomOf="@+id/textView8"
-            app:layout_constraintEnd_toEndOf="@+id/edtTenBanHD"
+            app:layout_constraintEnd_toEndOf="@+id/edtTenBanCT"
             app:layout_constraintTop_toTopOf="@+id/textView8" />
 
         <Button
-            android:id="@+id/btnLuuHD"
+            android:id="@+id/btnLuuCT"
             android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="30dp"
@@ -119,12 +119,12 @@
             android:padding="10dp"
             android:text="Lưu"
             app:cornerRadius="50dp"
-            app:layout_constraintBottom_toBottomOf="@+id/btnThemMonHD"
+            app:layout_constraintBottom_toBottomOf="@+id/btnThemMonCT"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/btnThemMonHD" />
+            app:layout_constraintTop_toTopOf="@+id/btnThemMonCT" />
 
         <Button
-            android:id="@+id/btnHuyHD"
+            android:id="@+id/btnHuyCT"
             android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -133,11 +133,11 @@
             android:text="Huỷ"
             android:textColor="#000000"
             app:cornerRadius="50dp"
-            app:layout_constraintStart_toStartOf="@+id/btnThemMonHD"
-            app:layout_constraintTop_toBottomOf="@+id/btnThemMonHD" />
+            app:layout_constraintStart_toStartOf="@+id/btnThemMonCT"
+            app:layout_constraintTop_toBottomOf="@+id/btnThemMonCT" />
 
         <Button
-            android:id="@+id/btnThemMonHD"
+            android:id="@+id/btnThemMonCT"
             android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
@@ -150,7 +150,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
         <Button
-            android:id="@+id/btnThoatHD"
+            android:id="@+id/btnThoatCT"
             android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -159,9 +159,9 @@
             android:text="Thoát"
             android:textColor="#000000"
             app:cornerRadius="50dp"
-            app:layout_constraintBottom_toBottomOf="@+id/btnHuyHD"
-            app:layout_constraintEnd_toEndOf="@+id/btnLuuHD"
-            app:layout_constraintTop_toTopOf="@+id/btnHuyHD" />
+            app:layout_constraintBottom_toBottomOf="@+id/btnHuyCT"
+            app:layout_constraintEnd_toEndOf="@+id/btnLuuCT"
+            app:layout_constraintTop_toTopOf="@+id/btnHuyCT" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
@@ -211,7 +211,7 @@
         />
 
     <ListView
-        android:id="@+id/lvDSMonHD"
+        android:id="@+id/lvDSMonCT"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >

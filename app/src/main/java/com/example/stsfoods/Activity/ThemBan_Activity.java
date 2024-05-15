@@ -11,24 +11,24 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.stsfoods.DAO.BanAnDAO;
+import com.example.stsfoods.DAO.Ban_DAO;
 import com.example.stsfoods.R;
 
-public class ThemBanAn_Activity extends AppCompatActivity {
+public class ThemBan_Activity extends AppCompatActivity {
 
     EditText edtThemBan;
     Button btnThemBan, btnThoat;
-    BanAnDAO bDAO;
+    Ban_DAO bDAO;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_thembanan);
+        setContentView(R.layout.activity_themban);
 
         edtThemBan = (EditText) findViewById(R.id.edtThemBan);
         btnThemBan = (Button) findViewById(R.id.btnThemBan);
         btnThoat = (Button) findViewById(R.id.btnThemBan);
 
-        bDAO = new BanAnDAO(this);
+        bDAO = new Ban_DAO(this);
 
 
         btnThemBan.setOnClickListener(new View.OnClickListener() {
@@ -42,7 +42,7 @@ public class ThemBanAn_Activity extends AppCompatActivity {
                     setResult(Activity.RESULT_OK, intent); // Truyền intent vào hàm setResult
                     finish();
                 } else {
-                    Toast.makeText(ThemBanAn_Activity.this, "Vui lòng nhập tên bàn", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ThemBan_Activity.this, "Vui lòng nhập tên bàn", Toast.LENGTH_SHORT).show();
                 }
             }
         });
