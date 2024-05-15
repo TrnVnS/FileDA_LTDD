@@ -5,11 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.stsfoods.DAO.MonDAO;
 import com.example.stsfoods.DTO.ChiTietBan_DTO;
 import com.example.stsfoods.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -44,6 +46,7 @@ public class ChiTietBan_Adapter extends BaseAdapter{
 
     public class ViewHolderChiTietHD {
         TextView txtTenMon, txtDonGia, txtSoLuong;
+        ImageView imgHinhMon;
     }
 
     @Override
@@ -56,6 +59,7 @@ public class ChiTietBan_Adapter extends BaseAdapter{
             viewHolderChiTietHD.txtTenMon = v.findViewById(R.id.txtTenMonHD);
             viewHolderChiTietHD.txtSoLuong = v.findViewById(R.id.txtSoLuongHD);
             viewHolderChiTietHD.txtDonGia = v.findViewById(R.id.txtDonGiaHD);
+            viewHolderChiTietHD.imgHinhMon = v.findViewById(R.id.imgHinhMonCT);
             v.setTag(viewHolderChiTietHD);
         } else {
             viewHolderChiTietHD = (ViewHolderChiTietHD) v.getTag();
@@ -66,7 +70,20 @@ public class ChiTietBan_Adapter extends BaseAdapter{
         viewHolderChiTietHD.txtTenMon.setText("Tên món: " + LayTenMonTuMaMon(chiTietHD.getMamon()));
         viewHolderChiTietHD.txtDonGia.setText("Đơn giá: " + LayDonGiaTuMaMon(chiTietHD.getMamon()));
 
+        Picasso.get().load("file://" + LayHinhTuMaMon(chiTietHD.getMamon()) ).into(viewHolderChiTietHD.imgHinhMon);
+
+
         return v;
+    }
+
+    private String LayHinhTuMaMon(int mamon)
+    {
+        MonDAO mDAO = new MonDAO(context);
+        String duongdan = mDAO.LayDuongDanUngVoiMaMon(mamon);
+        if (duongdan != null) {
+            return duongdan;
+        }
+        return null; // Trả về null nếu không tìm thấy
     }
 
     private String LayTenMonTuMaMon(int mamon)

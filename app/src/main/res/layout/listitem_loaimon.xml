@@ -10,4 +10,5 @@
         android:id="@+id/txt_tenLoaiMon"
         android:text="Tên loại món"/>
 
+
 </LinearLayout>

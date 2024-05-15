@@ -5,13 +5,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.stsfoods.DAO.PhanLoaiDAO;
 import com.example.stsfoods.DTO.BanAnDTO;
 import com.example.stsfoods.DTO.MonDTO;
 import com.example.stsfoods.DTO.PhanLoaiDTO;
 import com.example.stsfoods.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -54,9 +57,12 @@ public class Mon_Adapter extends BaseAdapter {
 
         TextView txtTenMon = (TextView) view.findViewById(R.id.txtTenMon);
         TextView txtDonGia = (TextView) view.findViewById(R.id.txtDonGia);
+        ImageView imgHinhMon = (ImageView) view.findViewById(R.id.imgHinhMon);
 
         txtTenMon.setText(lst.get(position).getTenmon());
         txtDonGia.setText("Đơn giá: "+lst.get(position).getDongia());
+
+        Picasso.get().load("file://" + lst.get(position).getHinhanh()).into(imgHinhMon);
 
         return view;
     }

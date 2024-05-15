@@ -97,6 +97,7 @@ public class MonDAO {
             m.setTenmon(c.getString(c.getColumnIndex(CreateDatabase.Mon_Ten)));
             m.setDongia(c.getString(c.getColumnIndex(CreateDatabase.Mon_DonGia)));
             m.setMaloai(c.getInt(c.getColumnIndex(CreateDatabase.Mon_MaLoai)));
+            m.setHinhanh(c.getString(c.getColumnIndex(CreateDatabase.Mon_HinhAnh)));
 
             lst.add(m);
 
@@ -135,6 +136,20 @@ public class MonDAO {
         c.close(); // Đóng Cursor sau khi sử dụng xong;
 
         return dongia;
+    }
+
+    public String LayDuongDanUngVoiMaMon(int mamon)
+    {
+        String duongdan = "";
+
+        String sTruyVan = "SELECT * FROM " + CreateDatabase.TBMon + " WHERE " + CreateDatabase.Mon_Ma + " = " + mamon;
+        Cursor c = db.rawQuery(sTruyVan, null);
+        if (c.moveToFirst()) { // Di chuyển con trỏ đến dòng đầu tiên
+            duongdan = c.getString(c.getColumnIndex(CreateDatabase.Mon_HinhAnh));
+        }
+        c.close(); // Đóng Cursor sau khi sử dụng xong;
+
+        return duongdan;
     }
 
     public String LayTenMonUngVoiMaMon(int mamon)

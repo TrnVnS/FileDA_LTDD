@@ -2,6 +2,7 @@ package com.example.stsfoods.Activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,6 +25,11 @@ import com.example.stsfoods.DTO.PhanLoaiDTO;
 import com.example.stsfoods.Fragment.QLMonFragment;
 import com.example.stsfoods.R;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -153,13 +159,53 @@ public class ThemThucDonActivity extends AppCompatActivity {
         }
         else if (requestCode == Request_code_themhinh)
         {
-            if (resultCode == Activity.RESULT_OK) //Mặc định chọn 1 tấm hình thì sẽ là result ok
+            if (resultCode == Activity.RESULT_OK && data != null) //Mặc định chọn 1 tấm hình thì sẽ là result ok
             {
-                //Lay duong dan hinh
-                sDuongDanHinh = data.getData().toString();
-                imgPicture.setImageURI(data.getData());
+                // Lấy đường dẫn hình ảnh đã chọn
+                Uri selectedImageUri = data.getData();
 
+                // Sao chép hình ảnh vào thư mục 'image' của ứng dụng
+                String copiedImagePath = copyImageToAppDirectory(selectedImageUri);
+
+                // Nếu sao chép thành công, sử dụng đường dẫn mới
+                if (copiedImagePath != null) {
+                    sDuongDanHinh = copiedImagePath;
+                    imgPicture.setImageURI(selectedImageUri); // Hiển thị hình ảnh đã chọn
+                } else {
+                    Toast.makeText(this, "Không thể sao chép hình ảnh", Toast.LENGTH_SHORT).show();
+                }
             }
+        }
+    }
+
+    private String copyImageToAppDirectory(Uri selectedImageUri) {
+        try {
+            // Mở luồng vào hình ảnh đã chọn
+            InputStream inputStream = getContentResolver().openInputStream(selectedImageUri);
+
+            // Tạo file đích trong thư mục 'image' của ứng dụng
+            File appDir = new File(getFilesDir(), "image");
+            if (!appDir.exists()) {
+                appDir.mkdir();
+            }
+            String imageName = "image_" + System.currentTimeMillis() + ".jpg";
+            File destFile = new File(appDir, imageName);
+
+            // Sao chép dữ liệu từ luồng vào file đích
+            OutputStream outputStream = new FileOutputStream(destFile);
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = inputStream.read(buffer)) > 0) {
+                outputStream.write(buffer, 0, length);
+            }
+
+            // Đóng luồng và trả về đường dẫn của file đích
+            inputStream.close();
+            outputStream.close();
+            return destFile.getAbsolutePath();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }
