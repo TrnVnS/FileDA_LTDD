@@ -20,17 +20,17 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="215dp">
 
             <ImageView
                 android:id="@+id/imgHinhMonQL"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_marginStart="30dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="10dp"
                 android:layout_weight="1"
                 android:padding="10dp"
-                android:src="@drawable/drink"
+                android:src="@drawable/logo"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
