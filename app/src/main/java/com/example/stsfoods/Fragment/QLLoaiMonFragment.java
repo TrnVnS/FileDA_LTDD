@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.example.stsfoods.Activity.ThemLoaiMon_Activity;
 import com.example.stsfoods.Activity.ThemMon_Activity;
 import com.example.stsfoods.Adapter.lstPhanLoai_Adapter;
+import com.example.stsfoods.DAO.ChiTietBan_DAO;
 import com.example.stsfoods.DAO.Mon_DAO;
 import com.example.stsfoods.DAO.PhanLoai_DAO;
 import com.example.stsfoods.DTO.PhanLoai_DTO;
@@ -45,8 +46,9 @@ public class QLLoaiMonFragment extends Fragment {
     PhanLoai_DAO plDAO;
 
     Mon_DAO mDAO;
+    ChiTietBan_DAO ctDAO;
 
-    int maLoai;
+    int maloai;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -61,6 +63,7 @@ public class QLLoaiMonFragment extends Fragment {
 
         mDAO = new Mon_DAO(getContext());
         plDAO = new PhanLoai_DAO(getContext());
+        ctDAO = new ChiTietBan_DAO(getContext());
         showLoaiMon();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -69,7 +72,7 @@ public class QLLoaiMonFragment extends Fragment {
                 PhanLoai_DTO pl = lstPhanLoai.get(position);
                 edtLoaiMon.setText(pl.getTen());
 
-                maLoai = pl.getMa();
+                maloai = pl.getMa();
             }
         });
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -82,11 +85,15 @@ public class QLLoaiMonFragment extends Fragment {
                 builder.setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+
                         PhanLoai_DTO pl = lstPhanLoai.get(position);
-                        int maloai = pl.getMa();
+                        maloai = pl.getMa();
+
+                        int mamon = mDAO.LayMaMonUngVoiMaLoai(maloai);
                         boolean kt = plDAO.XoaLoai(maloai);
                         boolean ktMon = mDAO.XoaMonTheoMaLoai(maloai);
-                        if(kt && ktMon){
+                        boolean ktCT = ctDAO.XoaCTBanTheoMaMon(mamon);
+                        if(kt && ktMon && ktCT){
                             showLoaiMon();
                             Toast.makeText(getActivity(), "Đã xóa loại món.", Toast.LENGTH_SHORT).show();
                         } else {
@@ -114,7 +121,7 @@ public class QLLoaiMonFragment extends Fragment {
                     Toast.makeText(getActivity(), "Chưa nhập tên loại món.", Toast.LENGTH_SHORT).show();
                 } else {
                     PhanLoai_DTO pl = new PhanLoai_DTO();
-                    pl.setMa(maLoai);
+                    pl.setMa(maloai);
                     pl.setTen(tenloai);
 
                     boolean kt = plDAO.CapNhatLoai(pl);

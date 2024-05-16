@@ -165,4 +165,17 @@ public class Mon_DAO {
         return tenmon;
     }
 
+    public int LayMaMonUngVoiMaLoai(int maloai)
+    {
+        int mamon = -1;
+        String sTruyVan = "SELECT * FROM " + CreateDatabase.TBMon + " WHERE " + CreateDatabase.Mon_MaLoai + " = " + maloai;
+        Cursor c = db.rawQuery(sTruyVan, null);
+        if (c.moveToFirst()) { // Di chuyển con trỏ đến dòng đầu tiên
+            mamon = c.getInt(c.getColumnIndex(CreateDatabase.Mon_Ma));
+        }
+        c.close(); // Đóng Cursor sau khi sử dụng xong;
+
+        return mamon;
+    }
+
 }

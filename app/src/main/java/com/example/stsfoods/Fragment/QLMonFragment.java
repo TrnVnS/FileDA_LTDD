@@ -149,7 +149,7 @@
                             int mamon = selectedMon.getMamon();
                             // Gọi phương thức xóa món từ lớp DAO
                             boolean xoaThanhCong = mDAO.XoaMon(mamon);
-                            boolean xoaCTBan = ctDAO.XoaCTBanThemMaMon(mamon);
+                            boolean xoaCTBan = ctDAO.XoaCTBanTheoMaMon(mamon);
                             // Kiểm tra kết quả xóa và thông báo cho người dùng
                             if (xoaThanhCong && xoaCTBan) {
                                 // Cập nhật lại danh sách món và giao diện

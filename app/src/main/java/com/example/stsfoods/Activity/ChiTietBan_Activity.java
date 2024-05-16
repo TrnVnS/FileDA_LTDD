@@ -182,7 +182,7 @@ public class ChiTietBan_Activity extends AppCompatActivity {
                         int mamon = selectedCT.getMamon();
 
                         // Thực hiện xoá theo mã
-                        boolean ktmon = ctDAO.XoaCTBanThemMaMon(mamon);
+                        boolean ktmon = ctDAO.XoaCTBanTheoMaMon(mamon);
 
                         if (ktmon) {
                             HienThiDSHoaDon();

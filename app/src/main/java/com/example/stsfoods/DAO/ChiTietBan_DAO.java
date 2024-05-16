@@ -54,7 +54,7 @@ public class ChiTietBan_DAO {
         return false;
     }
 
-    public boolean XoaCTBanThemMaMon(int mamon)
+    public boolean XoaCTBanTheoMaMon(int mamon)
     {
         String sTruyVan = "DELETE FROM " + CreateDatabase.TBChiTietBan + " WHERE " + CreateDatabase.ChiTietBan_MaMon + " = " + mamon;
 

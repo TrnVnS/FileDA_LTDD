@@ -70,8 +70,15 @@ public class ChiTietBan_Adapter extends BaseAdapter{
         viewHolderChiTietBan.txtTenMon.setText("Tên món: " + LayTenMonTuMaMon(chiTietHD.getMamon()));
         viewHolderChiTietBan.txtDonGia.setText("Đơn giá: " + LayDonGiaTuMaMon(chiTietHD.getMamon()));
 
-        Picasso.get().load("file://" + LayHinhTuMaMon(chiTietHD.getMamon()) ).into(viewHolderChiTietBan.imgHinhMon);
+        String duongdan = LayHinhTuMaMon(chiTietHD.getMamon());
 
+        if (duongdan != null && !duongdan.isEmpty()) {
+            // Nếu có hình ảnh, tải hình ảnh bằng Picasso
+            Picasso.get().load("file://" + duongdan).into(viewHolderChiTietBan.imgHinhMon);
+        } else {
+            // Nếu không có hình ảnh, đặt hình ảnh mặc định của máy vào ImageView
+            viewHolderChiTietBan.imgHinhMon.setImageResource(R.drawable.logo); // hoặc hình ảnh khác tùy chọn
+        }
 
         return v;
     }
