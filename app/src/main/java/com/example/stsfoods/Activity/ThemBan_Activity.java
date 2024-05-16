@@ -17,7 +17,7 @@ import com.example.stsfoods.R;
 public class ThemBan_Activity extends AppCompatActivity {
 
     EditText edtThemBan;
-    Button btnThemBan, btnThoat;
+    Button btnThemBan;
     Ban_DAO bDAO;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -26,7 +26,6 @@ public class ThemBan_Activity extends AppCompatActivity {
 
         edtThemBan = (EditText) findViewById(R.id.edtThemBan);
         btnThemBan = (Button) findViewById(R.id.btnThemBan);
-        btnThoat = (Button) findViewById(R.id.btnThemBan);
 
         bDAO = new Ban_DAO(this);
 
